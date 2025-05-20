@@ -1,34 +1,30 @@
-# Portfólio Pessoal
+# Portfolio - Lucas Gerbasi
 
-Este repositório contém meu portfólio pessoal, onde apresento alguns dos meus principais projetos e experiências com desenvolvimento web, design responsivo, análise de dados e mais.
+Este é meu portfólio pessoal desenvolvido com **React** e **Vite**, atualmente hospedado no **GitHub Pages**. O objetivo do projeto é apresentar minhas habilidades, experiências e projetos de forma clara, responsiva e acessível em dois idiomas.
 
-## 🔗 Acesse o Portfólio Online
+## Sobre o Projeto
 
-Você pode visualizar o portfólio diretamente em:  
-[https://seu-site.com](https://seu-site.com)  
-*(Substitua com o link real se não for apenas o GitHub)*
+Este portfólio foi criado como uma vitrine profissional. Ele reúne minha trajetória acadêmica, experiências práticas em desenvolvimento web e uma seleção de projetos pessoais e colaborativos. Além disso, é um exercício de design e desenvolvimento responsivo com foco na usabilidade e simplicidade.
 
-## 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-- HTML5
-- CSS3
-- JavaScript
-- [React](https://reactjs.org/) *(se aplicável)*
-- Git & GitHub
+- **React** – Biblioteca JavaScript para construção de interfaces.
+- **Vite** – Ferramenta moderna de build com foco em desempenho.
+- **JavaScript (ES6+)**
+- **HTML5 & CSS3**
+- **Git & GitHub** – Controle de versão e deploy com GitHub Pages.
 
-## 🚀 Como Rodar o Projeto Localmente
+## Conteúdo do Site
 
-Este projeto foi desenvolvido com Node.js v22.2.0.
+- **Apresentação Pessoal** – Breve introdução sobre mim e meu perfil profissional.
+- **Habilidades Técnicas** – Principais ferramentas e linguagens com as quais trabalho.
+- **Experiência** – Projetos acadêmicos, freelancers e experiências relevantes.
+- **Portfólio** – Projetos que desenvolvi ou participei ativamente.
+- **Multilíngue** – Suporte para português e inglês.
 
-```bash
-# Clone o repositório
-git clone https://github.com/lucasgerbasi/portfolio.git
+## Contato
 
-# Acesse a pasta
-cd portfolio
+Você pode me encontrar em:
 
-# Instale as dependências
-npm install
-
-# Inicie o servidor de desenvolvimento
-npm run dev
+- [LinkedIn](https://www.linkedin.com/in/lucas-gerbasi/)
+- E-mail: lucas.gerbasi1@gmail.com
