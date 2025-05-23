@@ -3,7 +3,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import ijbprojeto from '../assets/images/ijbprojeto.jpg';
 import trotesolidario from '../assets/images/trotesolidario.png';
-import spotify from '../assets/images/spotify.jpg';
+import whatyouforgot from '../assets/images/whatyouforgot.png';
+import echobox from '../assets/images/echobox.png';
 
 // Enhanced animations
 const containerVariants = {
@@ -111,34 +112,67 @@ export default function Projects() {
     },
     {
       id: 3,
-      title: { en: "Spotify API App", pt: "Aplicativo Spotify API" },
+      title: { en: "What You Forgot to Remember", pt: "O Que Você Esqueceu de Lembrar" },
       description: {
-        en: "Flask web app that shows top tracks/artists using the Spotify API. Clean interface and OAuth flow.",
-        pt: "Web app com Flask que mostra músicas/artistas usando a API do Spotify. Interface limpa e OAuth."
+        en: "A minimalist, emotionally evocative web experience that feels like a dream you almost recall.",
+        pt: "Uma experiência web minimalista e emocionalmente evocativa que parece um sonho que você quase lembra."
       },
       longDescription: {
-        en: "Developed a web application using Flask that integrates with Spotify's API to showcase users' listening habits, top tracks, and favorite artists. Implemented secure OAuth authentication flow and created an intuitive dashboard for music analytics.",
-        pt: "Desenvolvi uma aplicação web usando Flask que se integra à API do Spotify para mostrar os hábitos de audição dos usuários, principais faixas e artistas favoritos. Implementei fluxo de autenticação OAuth seguro e criei um painel intuitivo para análise musical."
+        en: "An introspective digital experience that presents random 'memories' with surreal, nostalgic undertones. Limited to 2 memories per day to preserve emotional impact, featuring save-as-image functionality, ambient audio, and a memory archive system.",
+        pt: "Uma experiência digital introspectiva que apresenta 'memórias' aleatórias com tons surreais e nostálgicos. Limitado a 2 memórias por dia para preservar o impacto emocional, com funcionalidade de salvar como imagem, áudio ambiente e sistema de arquivo de memórias."
       },
-      tech: ['Python', 'Flask', 'Spotify API'],
-      image: spotify,
-      link: "https://github.com/lucasgerbasi/Spotify-API-App",
-      year: 2023,
+      tech: ['HTML5', 'CSS3', 'JavaScript', 'html2canvas'],
+      image: whatyouforgot,
+      link: "https://github.com/lucasgerbasi/what-you-forgot-to-remember",
+      year: 2024,
       caseStudy: {
         problem: {
-          en: "Music fans wanted to visualize their Spotify stats in a user-friendly dashboard.",
-          pt: "Fãs de música queriam visualizar suas estatísticas do Spotify em um painel amigável."
+          en: "Create a meaningful digital experience that encourages reflection over consumption in our fast-paced world.",
+          pt: "Criar uma experiência digital significativa que encoraje reflexão ao invés de consumo em nosso mundo acelerado."
         },
         process: {
-          en: "Built a Flask backend with OAuth, fetched user data from Spotify, and designed a dashboard with charts. Focused on security and privacy.",
-          pt: "Construi um backend Flask com OAuth, busquei dados do usuário no Spotify e criei um dashboard com gráficos. Foquei em segurança e privacidade."
+          en: "Designed a minimalist interface with carefully curated content, implemented daily limits for intentional scarcity, added ambient audio for atmosphere, and used html2canvas for memory exports. Focused on emotional impact over technical complexity.",
+          pt: "Projetei uma interface minimalista com conteúdo cuidadosamente curado, implementei limites diários para escassez intencional, adicionei áudio ambiente para atmosfera e usei html2canvas para exportar memórias. Foquei no impacto emocional sobre complexidade técnica."
         },
         screenshots: [
-          { src: spotify, alt: "Spotify API App Screenshot" }
+          { src: whatyouforgot, alt: "What You Forgot to Remember Screenshot" }
         ],
         result: {
-          en: "Personal project.",
-          pt: "Projeto pessoal."
+          en: "Created a unique digital art piece that resonates emotionally with users and encourages mindful interaction.",
+          pt: "Criei uma peça de arte digital única que ressoa emocionalmente com os usuários e encoraja interação consciente."
+        }
+      }
+    },
+    {
+      id: 4,
+      title: { en: "EchoBox", pt: "EchoBox" },
+      description: {
+        en: "Anonymous confession and echo system where users submit messages and receive random ones from others.",
+        pt: "Sistema anônimo de confissões onde usuários enviam mensagens e recebem outras aleatórias."
+      },
+      longDescription: {
+        en: "A Flask-based anonymous messaging platform that creates connections through shared vulnerability. Users can submit personal messages and receive random confessions from others, fostering empathy and human connection while maintaining complete anonymity.",
+        pt: "Uma plataforma de mensagens anônimas baseada em Flask que cria conexões através da vulnerabilidade compartilhada. Usuários podem enviar mensagens pessoais e receber confissões aleatórias de outros, promovendo empatia e conexão humana mantendo anonimato completo."
+      },
+      tech: ['Python', 'Flask', 'SQLite', 'HTML5', 'CSS3'],
+      image: echobox,
+      link: "https://github.com/lucasgerbasi/echobox",
+      year: 2024,
+      caseStudy: {
+        problem: {
+          en: "People need a safe space to share thoughts anonymously and connect with others through shared experiences.",
+          pt: "Pessoas precisam de um espaço seguro para compartilhar pensamentos anonimamente e se conectar com outros através de experiências compartilhadas."
+        },
+        process: {
+          en: "Built a Flask backend with SQLite database, implemented profanity filtering, designed a clean interface for anonymous interactions, and added analytics for insights. Focused on user privacy and emotional safety.",
+          pt: "Construí um backend Flask com banco SQLite, implementei filtro de palavrões, projetei uma interface limpa para interações anônimas e adicionei analytics para insights. Foquei na privacidade do usuário e segurança emocional."
+        },
+        screenshots: [
+          { src: echobox, alt: "EchoBox Screenshot" }
+        ],
+        result: {
+          en: "Created a platform that facilitates meaningful anonymous connections and provides emotional support through shared experiences.",
+          pt: "Criei uma plataforma que facilita conexões anônimas significativas e oferece suporte emocional através de experiências compartilhadas."
         }
       }
     }
@@ -169,7 +203,7 @@ export default function Projects() {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
