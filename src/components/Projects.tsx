@@ -38,7 +38,7 @@ export default function Projects() {
       gif: placeholderGif,
       githubLink: "https://github.com/lucasgerbasi/memento",
       liveLink: null,
-      year: 2024,
+      year: 2025,
       caseStudy: {
         myRole: { en: "Solo Developer & Game Designer", pt: "Desenvolvedor Solo e Game Designer" },
         challenge: { en: "Architecting a highly data-driven and interconnected system in Godot where dozens of unique items and world events could interact without writing brittle, hard-coded logic. The system needed to be scalable for future content.", pt: "Arquitetar um sistema altamente interconectado e orientado a dados em Godot, onde dezenas de itens e eventos de mundo pudessem interagir sem lógica frágil e hard-coded. O sistema precisava ser escalável para conteúdo futuro." },
@@ -46,22 +46,37 @@ export default function Projects() {
         outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
       }
     },
-    {
+{
       id: 2,
       title: { en: "LocalVault", pt: "LocalVault" },
-      description: { en: "A secure, local-first password manager built with Electron. Your data never leaves your device.", pt: "Um gerenciador de senhas seguro e 'local-first' construído com Electron. Seus dados nunca saem do seu dispositivo." },
-      longDescription: { en: "LocalVault is a cross-platform desktop application that provides a secure, private, and straightforward way to manage passwords. It operates on a local-first principle, meaning your sensitive data is never sent to or stored on any cloud server. Everything is encrypted and saved directly on your computer, giving you complete control.", pt: "LocalVault é um aplicativo de desktop multiplataforma que oferece uma maneira segura, privada e direta de gerenciar senhas. Ele opera com um princípio 'local-first', o que significa que seus dados sensíveis nunca são enviados ou armazenados em nenhum servidor na nuvem. Tudo é criptografado e salvo diretamente no seu computador, dando a você controle total." },
-      tech: ['Electron', 'Node.js', 'AES-256-GCM', 'Scrypt'],
+      description: { en: "A secure, local-first password manager built from scratch with Electron and Node.js.", pt: "Um gerenciador de senhas seguro e 'local-first' construído do zero com Electron e Node.js." },
+      longDescription: { 
+        en: "I created LocalVault to solve my own need for a straightforward, highly secure password manager that wasn't reliant on the cloud. This project is a desktop application that gives users complete control over their data by encrypting and storing it locally, secured by a single master password. It includes a full suite of features, from a secure password generator to encrypted vault backups.", 
+        pt: "Eu criei o LocalVault para resolver minha própria necessidade de um gerenciador de senhas direto, altamente seguro e que não dependesse da nuvem. Este projeto é uma aplicação de desktop que dá aos usuários controle total sobre seus dados, criptografando e armazenando-os localmente, protegidos por uma única senha mestra. Inclui um conjunto completo de recursos, desde um gerador de senhas seguro até backups criptografados do cofre." 
+      },
+      tech: ['Electron', 'Node.js', 'Argon2', 'AES-265-GCM', 'Cryptography'],
       image: localvaultImg,
       gif: placeholderGif,
       githubLink: "https://github.com/lucasgerbasi/LocalVault",
       liveLink: null,
-      year: 2024,
+      year: 2025,
       caseStudy: {
-        myRole: { en: "Solo Developer", pt: "Desenvolvedor Solo" },
-        challenge: { en: "Ensuring top-tier security without relying on external libraries. The main challenge was correctly implementing modern cryptographic standards (Scrypt, AES-GCM) and secure inter-process communication within Electron's architecture.", pt: "Garantir segurança de alto nível sem depender de bibliotecas externas. O principal desafio foi implementar corretamente padrões criptográficos modernos (Scrypt, AES-GCM) e comunicação segura entre processos na arquitetura do Electron." },
-        solution: { en: "I used Node.js's native 'crypto' module for end-to-end encryption. For security between processes, I used Electron's `contextBridge` to create a secure API, preventing any Node.js APIs from leaking to the frontend.", pt: "Usei o módulo nativo 'crypto' do Node.js para criptografia de ponta a ponta. Para a segurança entre processos, usei o `contextBridge` do Electron para criar uma API segura, impedindo que APIs do Node.js vazassem para o frontend." },
-        outcome: { en: "A functional and secure desktop application that adheres to modern security best practices. This project deepened my understanding of applied cryptography and secure application architecture.", pt: "Uma aplicação de desktop funcional e segura que adere às melhores práticas de segurança modernas. Este projeto aprofundou meu entendimento de criptografia aplicada e arquitetura de aplicações seguras." }
+        myRole: { 
+          en: "Solo Full-Stack Developer & Security Architect", 
+          pt: "Desenvolvedor Full-Stack Solo e Arquiteto de Segurança" 
+        },
+        challenge: { 
+          en: "The primary challenge was to architect a zero-knowledge, local-only application with state-of-the-art security. This required correctly implementing modern cryptographic standards from scratch using Node.js's native crypto module, ensuring secure inter-process communication (IPC) in Electron, and designing a user-friendly interface for complex security features.", 
+          pt: "O desafio principal era arquitetar uma aplicação 'zero-knowledge' e 'local-only' com segurança de ponta. Isso exigiu a implementação correta de padrões criptográficos modernos do zero, usando o módulo nativo de criptografia do Node.js, garantindo a comunicação segura entre processos (IPC) no Electron e projetando uma interface amigável para recursos de segurança complexos." 
+        },
+        solution: { 
+          en: "For key derivation, I upgraded from Scrypt to Argon2id, the current industry gold standard. For encryption, I used AES-256-GCM to ensure both confidentiality and data integrity. To secure the application's architecture, I disabled Node.js integration in the renderer and used Electron's `contextBridge` to create a minimal, secure API between the front-end and back-end, preventing any potential security leaks.", 
+          pt: "Para a derivação de chave, atualizei de Scrypt para Argon2id, o padrão ouro atual da indústria. Para criptografia, usei AES-256-GCM para garantir tanto a confidencialidade quanto a integridade dos dados. Para proteger a arquitetura da aplicação, desativei a integração do Node.js no renderer e usei o `contextBridge` do Electron para criar uma API mínima e segura entre o front-end e o back-end, prevenindo vazamentos de segurança." 
+        },
+        outcome: { 
+          en: "The result is a fully-featured, highly secure desktop password manager that I use myself. This project was an incredible deep dive into applied cryptography, secure application architecture, and the intricacies of the Electron framework. I learned not only how to implement security features, but also how to design them in a way that is robust and user-centric.", 
+          pt: "O resultado é um gerenciador de senhas de desktop completo e altamente seguro que eu mesmo uso. Este projeto foi um mergulho profundo em criptografia aplicada, arquitetura de aplicações seguras e nas complexidades do framework Electron. Aprendi não apenas a implementar recursos de segurança, mas também a projetá-los de uma forma que seja robusta e centrada no usuário." 
+        }
       }
     },
     {
