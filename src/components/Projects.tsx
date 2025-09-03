@@ -3,12 +3,15 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- PROJECT ASSETS ---
+import mementoImg from '../assets/images/memento.jpg';
 import ijbprojetoImg from '../assets/images/ijbprojeto.jpg';
 import localvaultImg from '../assets/images/localvaultlogo.jpg';
 import trotesolidarioImg from '../assets/images/trotesolidario.png';
 import whatyouforgotImg from '../assets/images/whatyouforgot.png';
 import echoboxImg from '../assets/images/echobox.png';
 import placeholderGif from '../assets/images/placeholder.gif';
+import localvaultGif from '../assets/videos/localvault.gif';
+import mementoWebM from '../assets/videos/memento.webm';
 
 const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 }}};
 const projectVariants = {
@@ -23,10 +26,9 @@ export default function Projects() {
   type Project = typeof projects[number];
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isInView, setIsInView] = useState(false);
-  const [isShowingGif, setIsShowingGif] = useState(false);
+  const [isShowingDemo, setIsShowingDemo] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // --- FULLY ENHANCED PROJECTS ARRAY ---
   const projects = [
     {
       id: 1,
@@ -34,8 +36,9 @@ export default function Projects() {
       description: { en: "A top-down, loop-driven exploration game with a 'horror-cute' aesthetic, built in Godot 4.", pt: "Um jogo de exploração top-down focado em loops com uma estética 'horror-cute', construído em Godot 4." },
       longDescription: { en: "Memento is a top-down exploration and collection game set in the Echorealm, a drowned sea of memory. As a 'Stable Echo,' the player engages in a core loop of catching unique fish, sacrificing them for currency, upgrading permanent abilities, and crafting new fish forms through a deep, multi-layered system.", pt: "Memento é um jogo de exploração e coleção top-down ambientado no Echorealm, um mar afogado de memórias. Como um 'Eco Estável', o jogador participa de um loop de gameplay de pescar peixes únicos, sacrificá-los por moeda, aprimorar habilidades permanentes e criar novas formas de peixes através de um sistema profundo e multifacetado." },
       tech: ['Godot 4', 'GDScript', 'Data-Driven Design'],
-      image: ijbprojetoImg,
-      gif: placeholderGif,
+      image: mementoImg,
+      demoAsset: mementoWebM,
+      mediaType: 'video' as 'video' | 'gif',
       githubLink: "https://github.com/lucasgerbasi/memento",
       liveLink: null,
       year: 2025,
@@ -46,7 +49,7 @@ export default function Projects() {
         outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
       }
     },
-{
+    {
       id: 2,
       title: { en: "LocalVault", pt: "LocalVault" },
       description: { en: "A secure, local-first password manager built from scratch with Electron and Node.js.", pt: "Um gerenciador de senhas seguro e 'local-first' construído do zero com Electron e Node.js." },
@@ -56,7 +59,8 @@ export default function Projects() {
       },
       tech: ['Electron', 'Node.js', 'Argon2', 'AES-265-GCM', 'Cryptography'],
       image: localvaultImg,
-      gif: placeholderGif,
+      demoAsset: localvaultGif,
+      mediaType: 'gif' as 'video' | 'gif',
       githubLink: "https://github.com/lucasgerbasi/LocalVault",
       liveLink: null,
       year: 2025,
@@ -84,11 +88,12 @@ export default function Projects() {
         title: { en: "IJB Website", pt: "Site IJB" },
         description: { en: "Built a site for a nonprofit that renovates homes. Led front-end using React and styled components.", pt: "Construí um site para uma ONG que reforma casas. Liderei o front-end com React e componentes estilizados." },
         longDescription: { en: "Designed and implemented a comprehensive website for Instituto João de Barro, a nonprofit organization focused on home renovation for families in need. Led the front-end development team, implementing responsive design principles and accessibility features.", pt: "Projetei e implementei um site abrangente para o Instituto João de Barro, uma organização sem fins lucrativos focada na renovação de casas para famílias necessitadas. Liderei a equipe de desenvolvimento front-end, implementando princípios de design responsivo e recursos de acessibilidade." },
-        tech: ['React', 'HTML', 'CSS', 'JavaScript'],
+        tech: ['React', 'HTML5', 'CSS3', 'JavaScript'],
         image: ijbprojetoImg,
-        gif: placeholderGif,
+        demoAsset: placeholderGif,
+        mediaType: 'gif' as 'video' | 'gif',
         githubLink: "https://github.com/MPasti/instituto-joao-de-barro",
-        liveLink: null, // Example live link
+        liveLink: null,
         year: 2023,
         caseStudy: {
             myRole: { en: "Front-End Development Lead", pt: "Líder de Desenvolvimento Front-End" },
@@ -104,9 +109,10 @@ export default function Projects() {
         longDescription: { en: "An introspective digital experience that presents random 'memories' with surreal, nostalgic undertones. Limited to 2 memories per day to preserve emotional impact, featuring save-as-image functionality, ambient audio, and a memory archive system.", pt: "Uma experiência digital introspectiva que apresenta 'memórias' aleatórias com tons surreais e nostálgicos. Limitado a 2 memórias por dia para preservar o impacto emocional, com funcionalidade de salvar como imagem, áudio ambiente e sistema de arquivo de memórias." },
         tech: ['HTML5', 'CSS3', 'JavaScript', 'html2canvas'],
         image: whatyouforgotImg,
-        gif: placeholderGif,
+        demoAsset: placeholderGif,
+        mediaType: 'gif' as 'video' | 'gif',
         githubLink: "https://github.com/lucasgerbasi/what-you-forgot-to-remember",
-        liveLink: "https://lucasgerbasi.github.io/what-you-forgot-to-remember/", // Example live link
+        liveLink: "https://lucasgerbasi.github.io/what-you-forgot-to-remember/",
         year: 2024,
         caseStudy: {
             myRole: { en: "Solo Developer & Creator", pt: "Desenvolvedor Solo e Criador" },
@@ -122,7 +128,8 @@ export default function Projects() {
         longDescription: { en: "A Flask-based anonymous messaging platform that creates connections through shared vulnerability. Users can submit personal messages and receive random confessions from others, fostering empathy and human connection while maintaining complete anonymity.", pt: "Uma plataforma de mensagens anônimas baseada em Flask que cria conexões através da vulnerabilidade compartilhada. Usuários podem enviar mensagens pessoais e receber confissões aleatórias de outros, promovendo empatia e conexão humana mantendo anonimato completo." },
         tech: ['Python', 'Flask', 'SQLite', 'HTML5', 'CSS3'],
         image: echoboxImg,
-        gif: placeholderGif,
+        demoAsset: placeholderGif,
+        mediaType: 'gif' as 'video' | 'gif',
         githubLink: "https://github.com/lucasgerbasi/echobox",
         liveLink: null,
         year: 2024,
@@ -138,11 +145,12 @@ export default function Projects() {
         title: { en: "Solidarity Hazing", pt: "Trote Solidário" },
         description: { en: "A donations tracker for a student integration event. Focused on responsive layout and clarity.", pt: "Rastreador de doações para um evento estudantil. Foquei em layout responsivo e clareza." },
         longDescription: { en: "Created a donation tracking system for university student integration events. The platform allows organizers to monitor donation goals in real-time, visualize progress, and engage participants through gamification elements.", pt: "Criei um sistema de rastreamento de doações para eventos de integração de estudantes universitários. A plataforma permite que os organizadores monitorem as metas de doação em tempo real, visualizem o progresso e envolvam os participantes por meio de elementos de gamificação." },
-        tech: ['HTML', 'CSS', 'JavaScript'],
+        tech: ['HTML5', 'CSS3', 'JavaScript'],
         image: trotesolidarioImg,
-        gif: placeholderGif,
+        demoAsset: placeholderGif,
+        mediaType: 'gif' as 'video' | 'gif',
         githubLink: "https://github.com/lucasgerbasi/Trote-Solidario",
-        liveLink: null, // Example live link
+        liveLink: null,
         year: 2022,
         caseStudy: {
             myRole: { en: "Solo Developer", pt: "Desenvolvedor Solo" },
@@ -159,16 +167,16 @@ export default function Projects() {
 
   const handleOpenDetails = (project: Project) => {
     setSelectedProject(project);
-    setIsShowingGif(false);
+    setIsShowingDemo(false);
   };
 
   const handleOpenDemo = (project: Project) => {
     setSelectedProject(project);
-    setIsShowingGif(true);
+    setIsShowingDemo(true);
   };
 
-  const handleToggleGif = () => {
-    setIsShowingGif(prevState => !prevState);
+  const handleToggleDemo = () => {
+    setIsShowingDemo(prevState => !prevState);
     if (modalRef.current) {
       modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -225,7 +233,27 @@ export default function Projects() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedProject(null)}>
             <motion.div ref={modalRef} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-zinc-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto flex flex-col" onClick={(e) => e.stopPropagation()}>
               <div className="relative">
-                {isShowingGif ? <img src={selectedProject.gif} alt={`${selectedProject.title[currentLang]} Demo GIF`} className="w-full h-auto object-contain max-h-96 bg-black" /> : <img src={selectedProject.image} alt={selectedProject.title[currentLang]} className="w-full h-64 object-cover" />}
+                {isShowingDemo ? (
+                  <>
+                    {selectedProject.mediaType === 'video' ? (
+                      <video
+                        src={selectedProject.demoAsset}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-auto object-contain max-h-96 bg-black"
+                        key={selectedProject.id}
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <img src={selectedProject.demoAsset} alt={`${selectedProject.title[currentLang]} Demo GIF`} className="w-full h-auto object-contain max-h-96 bg-black" />
+                    )}
+                  </>
+                ) : (
+                  <img src={selectedProject.image} alt={selectedProject.title[currentLang]} className="w-full h-64 object-cover" />
+                )}
               </div>
 
               <div className="p-8 flex-grow">
@@ -268,8 +296,8 @@ export default function Projects() {
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
                     GitHub
                  </a>
-                 <button onClick={handleToggleGif} className="flex-1 min-w-[150px] bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-zinc-800 dark:text-zinc-200 font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
-                  {isShowingGif ? (currentLang === 'en' ? 'Static Image' : 'Imagem') : (currentLang === 'en' ? 'Show GIF Demo' : 'Ver Demo GIF')}
+                 <button onClick={handleToggleDemo} className="flex-1 min-w-[150px] bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-zinc-800 dark:text-zinc-200 font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
+                  {isShowingDemo ? (currentLang === 'en' ? 'Static Image' : 'Imagem') : (currentLang === 'en' ? 'Show GIF Demo' : 'Ver Demo GIF')}
                 </button>
               </div>
             </motion.div>
