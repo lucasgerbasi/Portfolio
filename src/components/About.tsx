@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 // --- IMPORT YOUR RESUME FILES ---
-// The build tool will handle the correct paths.
 import resumeEN from '../assets/pdf/CV - Lucas Gerbasi - English.pdf';
 import resumePT from '../assets/pdf/CV - Lucas Gerbasi.pdf';
 
@@ -211,16 +210,16 @@ export default function About() {
   const skills = useMemo(() => {
     return currentLang === "en"
       ? [
-          "HTML5 & CSS3", "JavaScript ES6+", "TypeScript", "React.js", "Python",
-          "Git & GitHub", "Responsive Design", "Tailwind CSS", "API Integration",
-          "UI/UX Design", "Performance", "Agile Methodologies", "SQL",
-          "Problem Solving", "Data Analysis", "Prompt Engineering"
+          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "SQL",
+          "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design",
+          "Git & GitHub", "Tailwind CSS", "API Integration", "Agile Methodologies", "UI/UX Design",
+          "Cryptography", "Security Principles", "Responsive Design", "Performance", "Problem Solving", "Data Analysis", "Prompt Engineering"
         ]
       : [
-          "HTML5 & CSS3", "JavaScript ES6+", "TypeScript", "React.js", "Python",
-          "Git & GitHub", "Design Responsivo", "Tailwind CSS", "Integração de APIs",
-          "UI/UX Design", "Performance", "Metodologias Ágeis", "SQL",
-          "Resolver Problemas", "Análise de Dados", "Prompt Engineering"
+          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "SQL",
+          "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados",
+          "Git & GitHub", "Tailwind CSS", "Integração de APIs", "Métodos Ágeis", "UI/UX Design",
+          "Criptografia", "Segurança", "Design Responsivo", "Performance", "Lógica & Debugging", "Análise de Dados", "Eng. de Prompt"
         ];
   }, [currentLang]);
 
@@ -300,7 +299,6 @@ export default function About() {
                 
                 <div className="my-8 border-t border-white/30"></div>
                 
-                {/* --- UPDATED DOWNLOAD BUTTON --- */}
                 <a
                   href={currentLang === "en" ? resumeEN : resumePT}
                   download={currentLang === "en" ? "CV - Lucas Gerbasi - English.pdf" : "CV - Lucas Gerbasi.pdf"}
