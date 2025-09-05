@@ -33,7 +33,10 @@ export default function Projects() {
     {
       id: 1,
       title: { en: "Memento", pt: "Memento" },
-      description: { en: "A top-down, loop-driven exploration game with a 'horror-cute' aesthetic, built in Godot 4.", pt: "Um jogo de exploração top-down focado em loops com uma estética 'horror-cute', construído em Godot 4." },
+      description: { 
+        en: "A complex application in Godot 4, architected from the ground up to demonstrate advanced data-driven systems and state management.", 
+        pt: "Uma aplicação complexa em Godot 4, arquitetada do zero para demonstrar sistemas avançados orientados a dados e gerenciamento de estado." 
+      },
       longDescription: { en: "Memento is a top-down exploration and collection game set in the Echorealm, a drowned sea of memory. As a 'Stable Echo,' the player engages in a core loop of catching unique fish, sacrificing them for currency, upgrading permanent abilities, and crafting new fish forms through a deep, multi-layered system.", pt: "Memento é um jogo de exploração e coleção top-down ambientado no Echorealm, um mar afogado de memórias. Como um 'Eco Estável', o jogador participa de um loop de gameplay de pescar peixes únicos, sacrificá-los por moeda, aprimorar habilidades permanentes e criar novas formas de peixes através de um sistema profundo e multifacetado." },
       tech: ['Godot 4', 'GDScript', 'Data-Driven Design'],
       image: mementoImg,
@@ -41,6 +44,7 @@ export default function Projects() {
       mediaType: 'video' as 'video' | 'gif',
       githubLink: "https://github.com/lucasgerbasi/memento",
       liveLink: null,
+      caseStudyLink: "https://docs.google.com/document/d/1uvvJmvyPA4PYNZNG3Lr1oJGowkQMPpODNN5TN-YgnjE/edit?usp=sharing",
       year: 2025,
       caseStudy: {
         myRole: { en: "Solo Developer & Game Designer", pt: "Desenvolvedor Solo e Game Designer" },
@@ -142,7 +146,7 @@ export default function Projects() {
     },
     {
         id: 6,
-        title: { en: "Solidarity Hazing", pt: "Trote Solidário" },
+        title: { en: "Charity Drive Tracker", pt: "Trote Solidário" },
         description: { en: "A donations tracker for a student integration event. Focused on responsive layout and clarity.", pt: "Rastreador de doações para um evento estudantil. Foquei em layout responsivo e clareza." },
         longDescription: { en: "Created a donation tracking system for university student integration events. The platform allows organizers to monitor donation goals in real-time, visualize progress, and engage participants through gamification elements.", pt: "Criei um sistema de rastreamento de doações para eventos de integração de estudantes universitários. A plataforma permite que os organizadores monitorem as metas de doação em tempo real, visualizem o progresso e envolvam os participantes por meio de elementos de gamificação." },
         tech: ['HTML5', 'CSS3', 'JavaScript'],
@@ -210,7 +214,7 @@ export default function Projects() {
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech, idx) => (<span key={idx} className="text-xs font-medium bg-zinc-100 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-200 px-3 py-1 rounded-full">{tech}</span>))}
                     </div>
-                    <div className="flex items-center gap-4 mt-auto pt-4 border-t border-zinc-200 dark:border-zinc-700">
+                    <div className="flex items-center flex-wrap gap-4 mt-auto pt-4 border-t border-zinc-200 dark:border-zinc-700">
                       <button onClick={(e) => { e.stopPropagation(); handleOpenDemo(project);}} className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>
                         {currentLang === 'en' ? 'View Demo' : 'Ver Demo'}
@@ -219,6 +223,12 @@ export default function Projects() {
                          GitHub
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                       </a>
+                      {project.caseStudyLink && (
+                        <a href={project.caseStudyLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sm font-medium text-green-600 dark:text-green-400 hover:underline flex items-center gap-1.5">
+                          {currentLang === 'en' ? 'Case Study' : 'Estudo de Caso'}
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -299,6 +309,17 @@ export default function Projects() {
                  <button onClick={handleToggleDemo} className="flex-1 min-w-[150px] bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-zinc-800 dark:text-zinc-200 font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
                   {isShowingDemo ? (currentLang === 'en' ? 'Static Image' : 'Imagem') : (currentLang === 'en' ? 'Show GIF Demo' : 'Ver Demo GIF')}
                 </button>
+                {selectedProject.caseStudyLink && (
+                  <a 
+                    href={selectedProject.caseStudyLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[150px] bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path></svg>
+                    {currentLang === 'en' ? 'View Case Study' : 'Ver Estudo de Caso'}
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>

@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
-// --- IMPORT YOUR RESUME FILES ---
 import resumeEN from '../assets/pdf/CV - Lucas Gerbasi - English.pdf';
 import resumePT from '../assets/pdf/CV - Lucas Gerbasi.pdf';
 
 
-// Intersection Observer Hook for scroll animations (No changes needed here)
 const useIntersectionObserver = <T extends HTMLElement = HTMLElement>(options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef<T | null>(null);
@@ -123,7 +121,9 @@ export default function About() {
   const content = useMemo(() => ({
     en: {
       title: "About Me",
-      text: "Computer Science student at UNI-FACEF with a self-taught profile and practical experience in web development, data analysis, digital community management, and collaborative digital projects. Focused on problem-solving, continuous learning, and the application of creative solutions. Comfortable in international environments with English communication.",
+      text: `Software Developer with a strong foundation in Computer Science from UNI-FACEF, combining theoretical knowledge with extensive hands-on experience building digital solutions. As a self-taught professional, I am driven by complex problem-solving, continuous learning, and applying creativity to software engineering.
+
+             My experience spans web development and data analysis to digital community management, always with a focus on delivering high-impact products. I am fluent in English and thrive in collaborative, international environments.`,
       tabs: {
         skills: "Skills & Technologies",
         education: "Education",
@@ -165,7 +165,9 @@ export default function About() {
     },
     pt: {
       title: "Sobre Mim",
-      text: "Estudante de Ciência da Computação na UNI-FACEF com perfil autodidata, experiência prática em desenvolvimento web, análise de dados, gestão de comunidades digitais e projetos digitais colaborativos. Foco em resolução de problemas, aprendizado contínuo e aplicação de soluções criativas. Confortável em ambiente internacional com comunicação em inglês.",
+      text: `Desenvolvedor de Software com uma base sólida em Ciência da Computação (UNI-FACEF), combinando conhecimento teórico com uma forte experiência prática na construção de soluções digitais. Como um profissional autodidata, sou movido pela resolução de problemas complexos, aprendizado contínuo e pela aplicação de criatividade na engenharia de software.
+
+            Minha experiência abrange desde o desenvolvimento web e análise de dados até a gestão de comunidades digitais, sempre com foco em entregar produtos de alto impacto. Possuo comunicação fluente em inglês e prospero em ambientes colaborativos e internacionais.`,
       tabs: {
         skills: "Habilidades & Tecnologias",
         education: "Educação",
@@ -318,16 +320,16 @@ export default function About() {
             </aside>
 
             <main className="lg:w-2/3 p-8 lg:p-12 space-y-16 relative">
-              <section className={`
-                transform transition-all duration-800 will-change-transform
-                ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
-              `} style={{ transitionDelay: '600ms' }}>
-                <p className="text-gray-700 leading-relaxed text-lg mb-8 relative">
-                  {content[currentLang].text}
-                </p>
-                <div className="flex justify-center mb-8">
-                  <div className="w-32 h-1 rounded-full bg-blue-400 shadow-lg"></div>
-                </div>
+                <section className={`
+                  transform transition-all duration-800 will-change-transform
+                  ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
+                `} style={{ transitionDelay: '600ms' }}>
+                  <p className="text-gray-700 leading-relaxed text-lg mb-8 relative whitespace-pre-line">
+                    {content[currentLang].text}
+                  </p>
+                  <div className="flex justify-center mb-8">
+                    <div className="w-32 h-1 rounded-full bg-blue-400 shadow-lg"></div>
+                  </div>
                 </section>
 
                 <section ref={skillsRef}>
