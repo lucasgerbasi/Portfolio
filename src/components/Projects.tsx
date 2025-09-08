@@ -67,6 +67,7 @@ export default function Projects() {
       mediaType: 'gif' as 'video' | 'gif',
       githubLink: "https://github.com/lucasgerbasi/LocalVault",
       liveLink: null,
+      caseStudyLink: "https://docs.google.com/document/d/17RtvC_PenJwMyh9gcbhf5_vfJ-HuuzLcmjGg8ho4SXQ/edit?usp=sharing", // <-- LINK ADDED HERE
       year: 2025,
       caseStudy: {
         myRole: { 
