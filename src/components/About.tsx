@@ -121,9 +121,9 @@ export default function About() {
   const content = useMemo(() => ({
     en: {
       title: "About Me",
-      text: `Software Developer with a strong foundation in Computer Science from UNI-FACEF, combining theoretical knowledge with extensive hands-on experience building digital solutions. As a self-taught professional, I am driven by complex problem-solving, continuous learning, and applying creativity to software engineering.
+      text: `I'm a software engineer who builds practical, secure, and user-centric applications from the ground up. My journey in tech is driven by a simple principle: if I can't find the right tool for a job, I'll build it myself, a philosophy that led to the creation of projects like LocalVault and DeadDrop.
 
-             My experience spans web development and data analysis to digital community management, always with a focus on delivering high-impact products. I am fluent in English and thrive in collaborative, international environments.`,
+             With a strong foundation in Computer Science, I specialize in full-stack development with a deep focus on security architecture and applied cryptography. I am passionate about creating zero-knowledge systems that empower users by giving them complete control over their data. I thrive on architecting complex, scalable solutions and am constantly exploring new technologies to build robust and meaningful software. I am fluent in English and thrive in collaborative, international environments.`,
       tabs: {
         skills: "Skills & Technologies",
         education: "Education",
@@ -165,9 +165,9 @@ export default function About() {
     },
     pt: {
       title: "Sobre Mim",
-      text: `Desenvolvedor de Software com uma base sólida em Ciência da Computação (UNI-FACEF), combinando conhecimento teórico com uma forte experiência prática na construção de soluções digitais. Como um profissional autodidata, sou movido pela resolução de problemas complexos, aprendizado contínuo e pela aplicação de criatividade na engenharia de software.
+      text: `Sou um engenheiro de software que constrói aplicações práticas, seguras e centradas no usuário do zero. Minha jornada em tecnologia é guiada por um princípio simples: se não encontro a ferramenta certa, eu mesmo a construo, uma filosofia que levou à criação de projetos como o LocalVault e o DeadDrop.
 
-            Minha experiência abrange desde o desenvolvimento web e análise de dados até a gestão de comunidades digitais, sempre com foco em entregar produtos de alto impacto. Possuo comunicação fluente em inglês e prospero em ambientes colaborativos e internacionais.`,
+            Com uma base sólida em Ciência da Computação, sou especialista em desenvolvimento full-stack com um foco profundo em arquitetura de segurança e criptografia aplicada. Sou apaixonado por criar sistemas de 'conhecimento-zero' (zero-knowledge) que empoderam os usuários, dando-lhes controle total sobre seus dados. Gosto de arquitetar soluções complexas e escaláveis e estou constantemente explorando novas tecnologias para construir software robusto e significativo. Possuo comunicação fluente em inglês e prospero em ambientes colaborativos e internacionais.`,
       tabs: {
         skills: "Habilidades & Tecnologias",
         education: "Educação",

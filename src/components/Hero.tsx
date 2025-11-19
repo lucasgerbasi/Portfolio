@@ -13,15 +13,24 @@ export default function Hero() {
   const content = {
     en: {
       greeting: "👋 Hello! I'm",
-      roles: ["Web Developer", "Frontend Specialist", "Python Programmer", "React Developer"],
+      roles: ["Full-Stack Developer", "Web Developer", "Security-Focused Engineer", "Frontend Specialist", "Software Architect", "React Developer", "Game Developer"],
       cta: ["View My Work", "Contact Me"]
     },
     pt: {
       greeting: "👋 Olá! Eu sou",
-      roles: ["Desenvolvedor Web", "Especialista Frontend", "Programador Python", "Desenvolvedor React"],
+      roles: ["Desenvolvedor Full-Stack", "Desenvolvedor Web", "Engenheiro Focado em Segurança", "Especialista Frontend", "Arquiteto de Software", "Desenvolvedor React", "Desenvolvedor de Jogos"],
       cta: ["Ver Projetos", "Contato"]
     }
   };
+
+  useEffect(() => {
+    const roles = content[currentLang].roles;
+    if (currentRoleIndex >= roles.length) {
+      setCurrentRoleIndex(0);
+    }
+    setTypedText('');
+    setIsDeleting(false);
+  }, [currentLang]);
 
   useEffect(() => {
     const roles = content[currentLang].roles;

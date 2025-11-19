@@ -12,6 +12,7 @@ import echoboxImg from '../assets/images/echobox.png';
 import placeholderGif from '../assets/images/placeholder.gif';
 import localvaultGif from '../assets/videos/localvault.gif';
 import mementoWebM from '../assets/videos/memento.webm';
+import deaddropImg from '../assets/images/deaddrop_logo.png';
 
 const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 }}};
 const projectVariants = {
@@ -40,29 +41,7 @@ export default function Projects() {
   };
 
   const projects = [
-    {
-      id: 1,
-      title: { en: "Memento", pt: "Memento" },
-      description: { 
-        en: "A complex application in Godot 4, architected from the ground up to demonstrate advanced data-driven systems and state management.", 
-        pt: "Uma aplicação complexa em Godot 4, arquitetada do zero para demonstrar sistemas avançados orientados a dados e gerenciamento de estado." 
-      },
-      longDescription: { en: "Memento is a top-down exploration and collection game set in the Echorealm, a drowned sea of memory. As a 'Stable Echo,' the player engages in a core loop of catching unique fish, sacrificing them for currency, upgrading permanent abilities, and crafting new fish forms through a deep, multi-layered system.", pt: "Memento é um jogo de exploração e coleção top-down ambientado no Echorealm, um mar afogado de memórias. Como um 'Eco Estável', o jogador participa de um loop de gameplay de pescar peixes únicos, sacrificá-los por moeda, aprimorar habilidades permanentes e criar novas formas de peixes através de um sistema profundo e multifacetado." },
-      tech: ['Godot 4', 'GDScript', 'Data-Driven Design'],
-      image: mementoImg,
-      demoAsset: mementoWebM,
-      mediaType: 'video' as 'video' | 'gif',
-      githubLink: "https://github.com/lucasgerbasi/memento",
-      liveLink: null,
-      caseStudyLink: "https://docs.google.com/document/d/1uvvJmvyPA4PYNZNG3Lr1oJGowkQMPpODNN5TN-YgnjE/edit?usp=sharing",
-      year: 2025,
-      caseStudy: {
-        myRole: { en: "Solo Developer & Game Designer", pt: "Desenvolvedor Solo e Game Designer" },
-        challenge: { en: "Architecting a highly data-driven and interconnected system in Godot where dozens of unique items and world events could interact without writing brittle, hard-coded logic. The system needed to be scalable for future content.", pt: "Arquitetar um sistema altamente interconectado e orientado a dados em Godot, onde dezenas de itens e eventos de mundo pudessem interagir sem lógica frágil e hard-coded. O sistema precisava ser escalável para conteúdo futuro." },
-        solution: { en: "I implemented a robust singleton pattern where a central 'GameData' manager loads all game entities from resource files into dictionaries at startup. Other systems query this manager by ID, completely decoupling the logic from the content and allowing for rapid content creation.", pt: "Implementei um padrão singleton robusto onde um gerenciador central 'GameData' carrega todas as entidades do jogo de arquivos de recurso para dicionários na inicialização. Outros sistemas consultam este gerenciador por ID, desacoplando completamente a lógica do conteúdo e permitindo a criação rápida de novo conteúdo." },
-        outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
-      }
-    },
+    // 1. LocalVault
     {
       id: 2,
       title: { en: "LocalVault", pt: "LocalVault" },
@@ -71,7 +50,7 @@ export default function Projects() {
         en: "I created LocalVault to solve my own need for a straightforward, highly secure password manager that wasn't reliant on the cloud. This project is a desktop application that gives users complete control over their data by encrypting and storing it locally, secured by a single master password. It includes a full suite of features, from a secure password generator to encrypted vault backups.", 
         pt: "Eu criei o LocalVault para resolver minha própria necessidade de um gerenciador de senhas direto, altamente seguro e que não dependesse da nuvem. Este projeto é uma aplicação de desktop que dá aos usuários controle total sobre seus dados, criptografando e armazenando-os localmente, protegidos por uma única senha mestra. Inclui um conjunto completo de recursos, desde um gerador de senhas seguro até backups criptografados do cofre." 
       },
-      tech: ['Electron', 'Node.js', 'Argon2', 'AES-265-GCM', 'Cryptography'],
+      tech: ['Electron', 'Node.js', 'Argon2', 'AES-256-GCM', 'Cryptography'],
       image: localvaultImg,
       demoAsset: localvaultGif,
       mediaType: 'gif' as 'video' | 'gif',
@@ -98,6 +77,70 @@ export default function Projects() {
         }
       }
     },
+    // 2. DeadDrop
+    {
+      id: 7,
+      title: { en: "DeadDrop", pt: "DeadDrop" },
+      description: { 
+        en: "A privacy-first, ephemeral file-sharing web application with a zero-knowledge architecture.", 
+        pt: "Uma aplicação web de compartilhamento de arquivos efêmero, focado em privacidade e com arquitetura de conhecimento zero." 
+      },
+      longDescription: { 
+        en: "Similar to LocalVault, I built DeadDrop to address my own need for a truly private, one-time method of sharing sensitive files without trusting a third party. It's a web utility that implements a Zero-Knowledge Architecture where all encryption occurs client-side, ensuring the server is blind to file contents. Files are permanently deleted after the first download.", 
+        pt: "Assim como o LocalVault, construí o DeadDrop para resolver minha própria necessidade de um método verdadeiramente privado e de uso único para compartilhar arquivos sensíveis sem confiar em terceiros. É um utilitário web que implementa uma Arquitetura de Conhecimento Zero, onde toda a criptografia ocorre no lado do cliente, garantindo que o servidor seja cego ao conteúdo dos arquivos. Os arquivos são permanentemente excluídos após o primeiro download." 
+      },
+      tech: ['React', 'Node.js', 'Web Crypto API', 'Zero-Knowledge'],
+      image: deaddropImg,
+      demoAsset: placeholderGif,
+      mediaType: 'gif' as 'video' | 'gif',
+      githubLink: "https://github.com/lucasgerbasi/DeadDrop", 
+      liveLink: "https://lucasgerbasi.github.io/DeadDrop/",
+      caseStudyLink: "https://docs.google.com/document/d/1zi4Es4g4lryFLYn33BewXvd1A_vY1kBbhZ6wx5MHu0Q/edit?usp=sharing",
+      year: 2025,
+      caseStudy: {
+        myRole: { 
+          en: "Solo Developer & Security Architect", 
+          pt: "Desenvolvedor Solo e Arquiteto de Segurança" 
+        },
+        challenge: { 
+          en: "The core challenge was to design a zero-knowledge, end-to-end encrypted file sharing system where the server is provably blind to file content, and to deploy it entirely on free-tier platforms without compromising security.", 
+          pt: "O desafio principal foi projetar um sistema de compartilhamento de arquivos com criptografia de ponta a ponta e conhecimento zero, onde o servidor é comprovadamente cego ao conteúdo, e implantá-lo totalmente em plataformas de nível gratuito sem comprometer a segurança." 
+        },
+        solution: { 
+          en: "Implemented client-side AES-256-GCM encryption using the Web Crypto API. The encryption key is transferred to the recipient via the URL hash fragment (#), which is never sent to the server, guaranteeing zero-knowledge. The Node.js backend enforces a strict delete-on-download policy.", 
+          pt: "Implementei criptografia AES-256-GCM no lado do cliente usando a Web Crypto API. A chave de criptografia é transferida ao destinatário através do fragmento hash da URL (#), que nunca é enviado ao servidor, garantindo conhecimento zero. O backend em Node.js impõe uma política estrita de exclusão após o download." 
+        },
+        outcome: { 
+          en: "Successfully created a fully functional, highly secure E2EE application with zero infrastructure cost. This project was a deep dive into applied web cryptography, secure architectural patterns, and proved that enterprise-grade privacy can be accessible and affordable.", 
+          pt: "Criei com sucesso uma aplicação E2EE funcional e altamente segura com custo zero de infraestrutura. Este projeto foi um mergulho profundo em criptografia web aplicada, padrões de arquitetura segura e provou que a privacidade de nível empresarial pode ser acessível." 
+        }
+      }
+    },
+    // 3. Memento
+    {
+      id: 1,
+      title: { en: "Memento", pt: "Memento" },
+      description: { 
+        en: "A complex application in Godot 4, architected from the ground up to demonstrate advanced data-driven systems and state management.", 
+        pt: "Uma aplicação complexa em Godot 4, arquitetada do zero para demonstrar sistemas avançados orientados a dados e gerenciamento de estado." 
+      },
+      longDescription: { en: "Memento is a top-down exploration and collection game set in the Echorealm, a drowned sea of memory. As a 'Stable Echo,' the player engages in a core loop of catching unique fish, sacrificing them for currency, upgrading permanent abilities, and crafting new fish forms through a deep, multi-layered system.", pt: "Memento é um jogo de exploração e coleção top-down ambientado no Echorealm, um mar afogado de memórias. Como um 'Eco Estável', o jogador participa de um loop de gameplay de pescar peixes únicos, sacrificá-los por moeda, aprimorar habilidades permanentes e criar novas formas de peixes através de um sistema profundo e multifacetado." },
+      tech: ['Godot 4', 'GDScript', 'Data-Driven Design'],
+      image: mementoImg,
+      demoAsset: mementoWebM,
+      mediaType: 'video' as 'video' | 'gif',
+      githubLink: "https://github.com/lucasgerbasi/memento",
+      liveLink: null,
+      caseStudyLink: "https://docs.google.com/document/d/1uvvJmvyPA4PYNZNG3Lr1oJGowkQMPpODNN5TN-YgnjE/edit?usp=sharing",
+      year: 2025,
+      caseStudy: {
+        myRole: { en: "Solo Developer & Game Designer", pt: "Desenvolvedor Solo e Game Designer" },
+        challenge: { en: "Architecting a highly data-driven and interconnected system in Godot where dozens of unique items and world events could interact without writing brittle, hard-coded logic. The system needed to be scalable for future content.", pt: "Arquitetar um sistema altamente interconectado e orientado a dados em Godot, onde dezenas de itens e eventos de mundo pudessem interagir sem lógica frágil e hard-coded. O sistema precisava ser escalável para conteúdo futuro." },
+        solution: { en: "I implemented a robust singleton pattern where a central 'GameData' manager loads all game entities from resource files into dictionaries at startup. Other systems query this manager by ID, completely decoupling the logic from the content and allowing for rapid content creation.", pt: "Implementei um padrão singleton robusto onde um gerenciador central 'GameData' carrega todas as entidades do jogo de arquivos de recurso para dicionários na inicialização. Outros sistemas consultam este gerenciador por ID, desacoplando completamente a lógica do conteúdo e permitindo a criação rápida de novo conteúdo." },
+        outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
+      }
+    },
+    // 4. IJB Website
     {
         id: 3,
         title: { en: "IJB Website", pt: "Site IJB" },
@@ -117,6 +160,7 @@ export default function Projects() {
             outcome: { en: "The launched website led to a 30% increase in online donations and was praised for its ease of use. This project solidified my skills in team leadership, accessibility, and performance optimization in React.", pt: "O site lançado resultou em um aumento de 30% nas doações online e foi elogiado por sua facilidade de uso. Este projeto solidificou minhas habilidades em liderança de equipe, acessibilidade e otimização de desempenho em React." }
         }
     },
+    // 5. What You Forgot to Remember
     {
         id: 4,
         title: { en: "What You Forgot to Remember", pt: "O Que Você Esqueceu de Lembrar" },
@@ -136,6 +180,7 @@ export default function Projects() {
             outcome: { en: "A unique digital art piece that achieves its goal of encouraging mindful interaction. This project was a great exercise in focusing on user experience and creative coding over pure technical complexity.", pt: "Uma peça de arte digital única que atinge seu objetivo de incentivar a interação consciente. Este projeto foi um ótimo exercício de foco na experiência do usuário e na programação criativa em detrimento da pura complexidade técnica." }
         }
     },
+    // 6. EchoBox
     {
         id: 5,
         title: { en: "EchoBox", pt: "EchoBox" },
@@ -155,6 +200,7 @@ export default function Projects() {
             outcome: { en: "A simple yet effective platform that provides a safe space for anonymous sharing. This project was a great introduction to full-stack development with Python and Flask, and managing a simple database.", pt: "Uma plataforma simples, mas eficaz, que oferece um espaço seguro para compartilhamento anônimo. Este projeto foi uma ótima introdução ao desenvolvimento full-stack com Python e Flask, e ao gerenciamento de um banco de dados simples." }
         }
     },
+    // 7. Charity Drive Tracker
     {
         id: 6,
         title: { en: "Charity Drive Tracker", pt: "Trote Solidário" },
@@ -359,7 +405,7 @@ export default function Projects() {
                     className="flex-1 min-w-[150px] bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
                   >
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path></svg>
-                    {currentLang === 'en' ? 'View Case Study' : 'Ver Estudo de Caso'}
+                    {currentLang === 'en' ? 'Case Study' : 'Ver Estudo de Caso'}
                   </a>
                 )}
               </div>
