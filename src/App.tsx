@@ -6,7 +6,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { LanguageProvider } from './context/LanguageContext';
 
-
+// App Component
 function App() {
   return (
     <LanguageProvider>
