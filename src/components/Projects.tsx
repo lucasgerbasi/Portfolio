@@ -6,11 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import mementoImg from '../assets/images/memento.jpg';
 import ijbprojetoImg from '../assets/images/ijbprojeto.jpg';
 import localvaultImg from '../assets/images/localvaultlogo.jpg';
+import lumenImg from '../assets/images/lumenlogo.png';
 import trotesolidarioImg from '../assets/images/trotesolidario.png';
 import whatyouforgotImg from '../assets/images/whatyouforgot.png';
 import echoboxImg from '../assets/images/echobox.png';
 import placeholderGif from '../assets/images/placeholder.gif';
 import localvaultGif from '../assets/videos/localvault.gif';
+import lumenWebM from '../assets/images/placeholder.gif';
 import mementoWebM from '../assets/videos/memento.webm';
 import deaddropImg from '../assets/images/deaddrop_logo.png';
 
@@ -24,13 +26,12 @@ const projectVariants = {
 
 export default function Projects() {
   const { currentLang } = useLanguage();
-  type Project = typeof projects[number] & { caseStudyLink?: string }; // Ensure caseStudyLink is part of the type
+  type Project = typeof projects[number] & { caseStudyLink?: string }; 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isInView, setIsInView] = useState(false);
   const [isShowingDemo, setIsShowingDemo] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // --- GOATCOUNTER EVENT TRACKING FUNCTION ---
   const handleTrackLinkClick = (eventName: string) => {
     if (window.goatcounter && window.goatcounter.count) {
       window.goatcounter.count({
@@ -116,7 +117,45 @@ export default function Projects() {
         }
       }
     },
-    // 3. Memento
+    // 3. Lumen
+    {
+      id: 8,
+      title: { en: "Lumen", pt: "Lumen" },
+      description: { 
+        en: "A fully local RAG engine for secure document and repository querying.", 
+        pt: "Um motor RAG totalmente local para consulta segura de documentos e repositórios." 
+      },
+      longDescription: { 
+        en: "Lumen is a fully local RAG (Retrieval-Augmented Generation) application designed to help you query your documents securely. By ingesting PDFs and GitHub repositories, Lumen allows you to ask questions in plain English and receive answers grounded strictly in your own data, without any information ever leaving your machine.", 
+        pt: "Lumen é uma aplicação RAG (Retrieval-Augmented Generation) totalmente local projetada para ajudar você a consultar seus documentos com segurança. Ao ingerir PDFs e repositórios GitHub, o Lumen permite que você faça perguntas em linguagem natural e receba respostas baseadas estritamente em seus próprios dados, sem que nenhuma informação saia da sua máquina." 
+      },
+      tech: ['FastAPI', 'Ollama', 'FAISS', 'Python', 'LangChain'],
+      image: lumenImg,
+      demoAsset: lumenWebM,
+      mediaType: 'video' as 'video' | 'gif',
+      githubLink: "https://github.com/lucasgerbasi/Lumen",
+      liveLink: null,
+      year: 2026,
+      caseStudy: {
+        myRole: { 
+          en: "Solo Backend Developer & AI Integrator", 
+          pt: "Desenvolvedor Backend Solo e Integrador de IA" 
+        },
+        challenge: { 
+          en: "Designing a high-performance RAG pipeline that runs entirely on consumer hardware without cloud dependencies, managing model swapping and vector memory efficiently.", 
+          pt: "Projetar um pipeline RAG de alto desempenho que rode inteiramente em hardware doméstico sem dependências de nuvem, gerenciando a troca de modelos e memória vetorial de forma eficiente." 
+        },
+        solution: { 
+          en: "I integrated Ollama for local LLM and embedding inference, using FAISS for lightning-fast in-memory similarity search and FastAPI for a streaming response architecture.", 
+          pt: "Integrei o Ollama para LLM local e inferência de embeddings, usando FAISS para busca de similaridade ultra-rápida em memória e FastAPI para uma arquitetura de resposta por streaming." 
+        },
+        outcome: { 
+          en: "A modular, privacy-focused knowledge engine that enables technical documentation analysis without privacy leaks.", 
+          pt: "Um motor de conhecimento modular focado em privacidade que permite a análise de documentação técnica sem vazamentos de dados." 
+        }
+      }
+    },
+    // 4. Memento
     {
       id: 1,
       title: { en: "Memento", pt: "Memento" },
@@ -140,12 +179,12 @@ export default function Projects() {
         outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
       }
     },
-    // 4. IJB Website
+    // 5. IJB Website
     {
         id: 3,
         title: { en: "IJB Website", pt: "Site IJB" },
         description: { en: "Built a site for a nonprofit that renovates homes. Led front-end using React and styled components.", pt: "Construí um site para uma ONG que reforma casas. Liderei o front-end com React e componentes estilizados." },
-        longDescription: { en: "Designed and implemented a comprehensive website for Instituto João de Barro, a nonprofit organization focused on home renovation for families in need. Led the front-end development team, implementing responsive design principles and accessibility features.", pt: "Projetei e implementei um site abrangente para o Instituto João de Barro, uma organização sem fins lucrativos focada na renovação de casas para famílias necessitadas. Liderei a equipe de desenvolvimento front-end, implementando princípios de design responsivo e recursos de acessibilidade." },
+        longDescription: { en: "Designed and implemented a comprehensive website for Instituto João de Barro. Led the front-end development team, implementing responsive design principles and accessibility features.", pt: "Projetei e implementei um site abrangente para o Instituto João de Barro. Liderei a equipe de desenvolvimento front-end, implementando princípios de design responsivo e acessibilidade." },
         tech: ['React', 'HTML5', 'CSS3', 'JavaScript'],
         image: ijbprojetoImg,
         demoAsset: placeholderGif,
@@ -155,17 +194,17 @@ export default function Projects() {
         year: 2023,
         caseStudy: {
             myRole: { en: "Front-End Development Lead", pt: "Líder de Desenvolvimento Front-End" },
-            challenge: { en: "The main challenge was ensuring the site was highly accessible (WCAG AA) and performed well on low-end devices, as the target audience included donors and volunteers from diverse backgrounds.", pt: "O principal desafio foi garantir que o site fosse altamente acessível (WCAG AA) e tivesse um bom desempenho em dispositivos de baixo custo, já que o público-alvo incluía doadores e voluntários de diversas origens." },
-            solution: { en: "I enforced strict semantic HTML, managed focus states carefully, and used lazy loading for images and components to improve initial load times. We conducted regular audits with Lighthouse to track and fix performance and accessibility issues.", pt: "Eu impus o uso de HTML semântico, gerenciei cuidadosamente os estados de foco e usei carregamento tardio para imagens e componentes para melhorar os tempos de carregamento inicial. Realizamos auditorias regulares com o Lighthouse para rastrear e corrigir problemas de desempenho e acessibilidade." },
-            outcome: { en: "The launched website led to a 30% increase in online donations and was praised for its ease of use. This project solidified my skills in team leadership, accessibility, and performance optimization in React.", pt: "O site lançado resultou em um aumento de 30% nas doações online e foi elogiado por sua facilidade de uso. Este projeto solidificou minhas habilidades em liderança de equipe, acessibilidade e otimização de desempenho em React." }
+            challenge: { en: "Ensuring the site was highly accessible (WCAG AA) and performed well on low-end devices.", pt: "Garantir que o site fosse altamente acessível (WCAG AA) e tivesse um bom desempenho em dispositivos de baixo custo." },
+            solution: { en: "I enforced strict semantic HTML and used lazy loading for images. Conducted regular audits with Lighthouse.", pt: "Impus o uso de HTML semântico e usei carregamento tardio para imagens. Realizei auditorias regulares com o Lighthouse." },
+            outcome: { en: "Led to a 30% increase in online donations and solidified my skills in team leadership and performance optimization.", pt: "Resultou em um aumento de 30% nas doações online e solidificou minhas habilidades em liderança de equipe e otimização." }
         }
     },
-    // 5. What You Forgot to Remember
+    // 6. What You Forgot to Remember
     {
         id: 4,
         title: { en: "What You Forgot to Remember", pt: "O Que Você Esqueceu de Lembrar" },
         description: { en: "A minimalist, emotionally evocative web experience that feels like a dream you almost recall.", pt: "Uma experiência web minimalista e emocionalmente evocativa que parece um sonho que você quase lembra." },
-        longDescription: { en: "An introspective digital experience that presents random 'memories' with surreal, nostalgic undertones. Limited to 2 memories per day to preserve emotional impact, featuring save-as-image functionality, ambient audio, and a memory archive system.", pt: "Uma experiência digital introspectiva que apresenta 'memórias' aleatórias com tons surreais e nostálgicos. Limitado a 2 memórias por dia para preservar o impacto emocional, com funcionalidade de salvar como imagem, áudio ambiente e sistema de arquivo de memórias." },
+        longDescription: { en: "An introspective digital experience that presents random 'memories' with surreal, nostalgic undertones. Limited to 2 memories per day to preserve emotional impact.", pt: "Uma experiência digital introspectiva que apresenta 'memórias' aleatórias com tons surreais. Limitado a 2 memórias por dia para preservar o impacto emocional." },
         tech: ['HTML5', 'CSS3', 'JavaScript', 'html2canvas'],
         image: whatyouforgotImg,
         demoAsset: placeholderGif,
@@ -175,17 +214,17 @@ export default function Projects() {
         year: 2024,
         caseStudy: {
             myRole: { en: "Solo Developer & Creator", pt: "Desenvolvedor Solo e Criador" },
-            challenge: { en: "The challenge was technical: creating a reliable 'save-as-image' feature directly in the browser. It needed to capture the styled text and background perfectly without requiring a backend server.", pt: "O desafio foi técnico: criar uma funcionalidade confiável de 'salvar como imagem' diretamente no navegador. Precisava capturar o texto estilizado e o fundo perfeitamente, sem a necessidade de um servidor backend." },
-            solution: { en: "I integrated the 'html2canvas' library, which effectively takes a 'screenshot' of a specified DOM element and converts it into a canvas. From there, I could convert the canvas to a data URL and trigger a download for the user.", pt: "Integrei a biblioteca 'html2canvas', que efetivamente tira um 'screenshot' de um elemento DOM específico e o converte em um canvas. A partir daí, pude converter o canvas para uma URL de dados e acionar um download para o usuário." },
-            outcome: { en: "A unique digital art piece that achieves its goal of encouraging mindful interaction. This project was a great exercise in focusing on user experience and creative coding over pure technical complexity.", pt: "Uma peça de arte digital única que atinge seu objetivo de incentivar a interação consciente. Este projeto foi um ótimo exercício de foco na experiência do usuário e na programação criativa em detrimento da pura complexidade técnica." }
+            challenge: { en: "Creating a reliable 'save-as-image' feature directly in the browser without a backend server.", pt: "Criar uma funcionalidade confiável de 'salvar como imagem' diretamente no navegador sem um servidor backend." },
+            solution: { en: "I integrated 'html2canvas' to take screenshots of DOM elements and convert them to downloadable data URLs.", pt: "Integrei a biblioteca 'html2canvas' para tirar screenshots de elementos DOM e convertê-los em URLs de dados para download." },
+            outcome: { en: "A unique digital art piece that encourages mindful interaction and creative coding.", pt: "Uma peça de arte digital única que incentiva a interação consciente e a programação criativa." }
         }
     },
-    // 6. EchoBox
+    // 7. EchoBox
     {
         id: 5,
         title: { en: "EchoBox", pt: "EchoBox" },
         description: { en: "Anonymous confession and echo system where users submit messages and receive random ones from others.", pt: "Sistema anônimo de confissões onde usuários enviam mensagens e recebem outras aleatórias." },
-        longDescription: { en: "A Flask-based anonymous messaging platform that creates connections through shared vulnerability. Users can submit personal messages and receive random confessions from others, fostering empathy and human connection while maintaining complete anonymity.", pt: "Uma plataforma de mensagens anônimas baseada em Flask que cria conexões através da vulnerabilidade compartilhada. Usuários podem enviar mensagens pessoais e receber confissões aleatórias de outros, promovendo empatia e conexão humana mantendo anonimato completo." },
+        longDescription: { en: "A Flask-based anonymous messaging platform that creates connections through shared vulnerability. Fosters empathy while maintaining complete anonymity.", pt: "Uma plataforma de mensagens anônimas baseada em Flask que cria conexões através da vulnerabilidade compartilhada." },
         tech: ['Python', 'Flask', 'SQLite', 'HTML5', 'CSS3'],
         image: echoboxImg,
         demoAsset: placeholderGif,
@@ -195,29 +234,9 @@ export default function Projects() {
         year: 2024,
         caseStudy: {
             myRole: { en: "Full-Stack Developer", pt: "Desenvolvedor Full-Stack" },
-            challenge: { en: "The core challenge was ensuring true user anonymity while preventing spam or malicious use. This required careful database design and a simple but effective content moderation strategy.", pt: "O desafio principal era garantir o anonimato real do usuário e, ao mesmo tempo, prevenir spam ou uso malicioso. Isso exigiu um design de banco de dados cuidadoso e uma estratégia de moderação de conteúdo simples, mas eficaz." },
-            solution: { en: "I designed the SQLite database schema to never store any personally identifiable information (like IP addresses). For moderation, I implemented a simple profanity filter on the backend to automatically screen submissions before they were made public.", pt: "Projetei o esquema do banco de dados SQLite para nunca armazenar nenhuma informação de identificação pessoal (como endereços IP). Para moderação, implementei um filtro de palavrões simples no backend para verificar automaticamente os envios antes de serem tornados públicos." },
-            outcome: { en: "A simple yet effective platform that provides a safe space for anonymous sharing. This project was a great introduction to full-stack development with Python and Flask, and managing a simple database.", pt: "Uma plataforma simples, mas eficaz, que oferece um espaço seguro para compartilhamento anônimo. Este projeto foi uma ótima introdução ao desenvolvimento full-stack com Python e Flask, e ao gerenciamento de um banco de dados simples." }
-        }
-    },
-    // 7. Charity Drive Tracker
-    {
-        id: 6,
-        title: { en: "Charity Drive Tracker", pt: "Trote Solidário" },
-        description: { en: "A donations tracker for a student integration event. Focused on responsive layout and clarity.", pt: "Rastreador de doações para um evento estudantil. Foquei em layout responsivo e clareza." },
-        longDescription: { en: "Created a donation tracking system for university student integration events. The platform allows organizers to monitor donation goals in real-time, visualize progress, and engage participants through gamification elements.", pt: "Criei um sistema de rastreamento de doações para eventos de integração de estudantes universitários. A plataforma permite que os organizadores monitorem as metas de doação em tempo real, visualizem o progresso e envolvam os participantes por meio de elementos de gamificação." },
-        tech: ['HTML5', 'CSS3', 'JavaScript'],
-        image: trotesolidarioImg,
-        demoAsset: placeholderGif,
-        mediaType: 'gif' as 'video' | 'gif',
-        githubLink: "https://github.com/lucasgerbasi/Trote-Solidario",
-        liveLink: null,
-        year: 2022,
-        caseStudy: {
-            myRole: { en: "Solo Developer", pt: "Desenvolvedor Solo" },
-            challenge: { en: "The project needed a simple, real-time 'backend' that could be updated quickly and easily by non-technical event organizers during a live event.", pt: "O projeto precisava de um 'backend' simples e em tempo real que pudesse ser atualizado de forma rápida e fácil por organizadores de eventos não técnicos durante um evento ao vivo." },
-            solution: { en: "Instead of a traditional database, I used Google Sheets as a data source. A simple vanilla JavaScript function fetched the data from the public sheet URL, allowing organizers to update donation numbers in a familiar interface, with changes reflected on the site instantly.", pt: "Em vez de um banco de dados tradicional, usei o Google Sheets como fonte de dados. Uma função simples em JavaScript puro buscava os dados da URL pública da planilha, permitindo que os organizadores atualizassem os números das doações em uma interface familiar, com as alterações refletidas no site instantaneamente." },
-            outcome: { en: "The tracker was a huge success, helping the event surpass its donation goals. It proved to be a valuable lesson in choosing the right tool for the job, demonstrating that sometimes the simplest solution is the most effective.", pt: "O rastreador foi um grande sucesso, ajudando o evento a superar suas metas de doação. Provou ser uma lição valiosa na escolha da ferramenta certa para o trabalho, demonstrando que, às vezes, a solução mais simples é a mais eficaz." }
+            challenge: { en: "Ensuring true user anonymity while preventing spam or malicious use.", pt: "Garantir o anonimato real do usuário e, ao mesmo tempo, prevenir spam ou uso malicioso." },
+            solution: { en: "Designed SQLite schema to never store PII and implemented a profanity filter on the backend.", pt: "Projetei o esquema SQLite para nunca armazenar PII e implementei um filtro de palavrões no backend." },
+            outcome: { en: "A safe space for anonymous sharing and a great introduction to full-stack development with Python.", pt: "Um espaço seguro para compartilhamento anônimo e uma ótima introdução ao desenvolvimento full-stack com Python." }
         }
     }
   ];

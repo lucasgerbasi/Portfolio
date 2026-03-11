@@ -212,14 +212,14 @@ export default function About() {
   const skills = useMemo(() => {
     return currentLang === "en"
       ? [
-          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "SQL",
-          "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design",
+          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL",
+          "LangChain", "RAG Systems", "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design",
           "Git & GitHub", "Tailwind CSS", "API Integration", "Agile Methodologies", "UI/UX Design",
           "Cryptography", "Security Principles", "Responsive Design", "Performance", "Problem Solving", "Data Analysis", "Prompt Engineering"
         ]
       : [
-          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "SQL",
-          "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados",
+          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL",
+          "LangChain", "Sistemas RAG", "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados",
           "Git & GitHub", "Tailwind CSS", "Integração de APIs", "Métodos Ágeis", "UI/UX Design",
           "Criptografia", "Segurança", "Design Responsivo", "Performance", "Lógica & Debugging", "Análise de Dados", "Eng. de Prompt"
         ];

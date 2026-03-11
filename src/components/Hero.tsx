@@ -13,12 +13,12 @@ export default function Hero() {
   const content = {
     en: {
       greeting: "👋 Hello! I'm",
-      roles: ["Full-Stack Developer", "Web Developer", "Security-Focused Engineer", "Frontend Specialist", "Software Architect", "React Developer", "Game Developer"],
+      roles: ["Full-Stack Developer", "Backend Developer", "Security-Focused Engineer", "Frontend Specialist", "Software Architect", "React Developer", "AI Integrator", "Game Developer"],
       cta: ["View My Work", "Contact Me"]
     },
     pt: {
       greeting: "👋 Olá! Eu sou",
-      roles: ["Desenvolvedor Full-Stack", "Desenvolvedor Web", "Engenheiro Focado em Segurança", "Especialista Frontend", "Arquiteto de Software", "Desenvolvedor React", "Desenvolvedor de Jogos"],
+      roles: ["Desenvolvedor Full-Stack", "Desenvolvedor Backend", "Engenheiro Focado em Segurança", "Especialista Frontend", "Arquiteto de Software", "Desenvolvedor React", "Integrador de IA", "Desenvolvedor de Jogos"],
       cta: ["Ver Projetos", "Contato"]
     }
   };
