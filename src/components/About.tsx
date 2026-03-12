@@ -4,7 +4,6 @@ import { useLanguage } from '../context/LanguageContext';
 import resumeEN from '../assets/pdf/CV - Lucas Gerbasi - English.pdf';
 import resumePT from '../assets/pdf/CV - Lucas Gerbasi.pdf';
 
-
 const useIntersectionObserver = <T extends HTMLElement = HTMLElement>(options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef<T | null>(null);
@@ -19,71 +18,47 @@ const useIntersectionObserver = <T extends HTMLElement = HTMLElement>(options = 
         observer.disconnect();
       }
     }, { threshold: 0.1, ...options });
-
     observer.observe(ref.current);
-
     return () => observer.disconnect();
   }, [options]);
 
   return [ref, isIntersecting] as const;
 };
 
-
-type SkillBadgeProps = {
-  skill: string;
-  index: number;
-  isVisible: boolean;
-};
-
+type SkillBadgeProps = { skill: string; index: number; isVisible: boolean; };
 const SkillBadge: React.FC<SkillBadgeProps> = React.memo(({ skill, index, isVisible }) => (
   <div
     className={`
-      bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg
-      transform transition-all duration-700 hover:scale-110 hover:shadow-xl cursor-pointer
-      flex items-center justify-center will-change-transform
-      ${isVisible 
-        ? 'translate-y-0 opacity-100' 
-        : 'translate-y-4 opacity-0'
-      }
+      border border-white/10 text-white/70 px-3 py-1.5 text-xs tracking-wider uppercase font-light
+      transition-all duration-700 hover:border-amber-400/60 hover:text-amber-300 cursor-default
+      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}
     `}
-    style={{ 
-      transitionDelay: `${index * 100}ms`
-    }}
+    style={{ transitionDelay: `${index * 50}ms` }}
   >
-    <span className="whitespace-nowrap">{skill}</span>
+    {skill}
   </div>
 ));
 
-
-type Experience = {
-  role: string;
-  company: string;
-  period: string;
-  description: string;
-};
-
-type TimelineItemProps = {
-  exp: Experience;
-  index: number;
-  isVisible: boolean;
-};
+type Experience = { role: string; company: string; period: string; description: string; };
+type TimelineItemProps = { exp: Experience; index: number; isVisible: boolean; };
 
 const TimelineItem: React.FC<TimelineItemProps> = React.memo(({ exp, index, isVisible }) => (
   <div
-    className={`
-      relative transform transition-all duration-800 hover:scale-[1.02] will-change-transform
-      ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}
-    `}
-    style={{ transitionDelay: `${index * 200}ms` }}
+    className={`relative pl-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
+    style={{ transitionDelay: `${index * 150}ms` }}
   >
-    <div className="absolute -left-4 top-2 w-4 h-4 bg-blue-600 border-4 border-white rounded-full shadow-lg"></div>
-    <div className="ml-2 bg-white/80 rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200">
-      <div className="font-bold text-lg text-blue-700">
-        {exp.role}
+    {/* Amber dot */}
+    <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+    {/* Vertical line */}
+    <span className="absolute left-[3px] top-4 bottom-0 w-px bg-white/10" />
+
+    <div className="pb-8">
+      <div className="flex flex-wrap items-baseline gap-2 mb-1">
+        <span className="text-white font-medium">{exp.role}</span>
+        <span className="text-amber-400/80 text-sm">@ {exp.company}</span>
       </div>
-      <div className="text-blue-700 font-semibold">{exp.company}</div>
-      <div className="text-gray-500 text-sm mb-2">{exp.period}</div>
-      <div className="text-gray-700 leading-relaxed">{exp.description}</div>
+      <div className="text-white/30 text-xs tracking-widest uppercase mb-2">{exp.period}</div>
+      <p className="text-white/50 text-sm leading-relaxed">{exp.description}</p>
     </div>
   </div>
 ));
@@ -93,310 +68,181 @@ export default function About() {
   const [headerRef, headerVisible] = useIntersectionObserver<HTMLDivElement>();
   const [skillsRef, skillsVisible] = useIntersectionObserver<HTMLElement>();
   const [experienceRef, experienceVisible] = useIntersectionObserver<HTMLElement>();
-  
-  type Lang = "en" | "pt";
 
+  type Lang = "en" | "pt";
   type Content = {
     [key in Lang]: {
       title: string;
       text: string;
-      tabs: {
-        skills: string;
-        education: string;
-        experience: string;
-      };
-      education: {
-        degree: string;
-        institution: string;
-        period: string;
-      }[];
-      experience: {
-        role: string;
-        company: string;
-        period: string;
-        description: string;
-      }[];
+      tabs: { skills: string; education: string; experience: string; };
+      education: { degree: string; institution: string; period: string; }[];
+      experience: { role: string; company: string; period: string; description: string; }[];
     }
   };
-  const content = useMemo(() => ({
+
+  const content = useMemo<Content>(() => ({
     en: {
       title: "About Me",
-      text: `I'm a software engineer who builds practical, secure, and user-centric applications from the ground up. My journey in tech is driven by a simple principle: if I can't find the right tool for a job, I'll build it myself, a philosophy that led to the creation of projects like LocalVault and DeadDrop.
-
-             With a strong foundation in Computer Science, I specialize in full-stack development with a deep focus on security architecture and applied cryptography. I am passionate about creating zero-knowledge systems that empower users by giving them complete control over their data. I thrive on architecting complex, scalable solutions and am constantly exploring new technologies to build robust and meaningful software. I am fluent in English and thrive in collaborative, international environments.`,
-      tabs: {
-        skills: "Skills & Technologies",
-        education: "Education",
-        experience: "Professional Experience"
-      },
-      education: [
-        {
-          degree: "Bachelor's in Computer Science",
-          institution: "Uni-FACEF",
-          period: "2022 - Present"
-        }
-      ],
+      text: `I'm a software engineer who builds practical, secure, and user-centric applications from the ground up. My journey in tech is driven by a simple principle: if I can't find the right tool for a job, I'll build it myself, a philosophy that led to the creation of projects like LocalVault and DeadDrop.\n\nWith a strong foundation in Computer Science, I specialize in full-stack development with a deep focus on security architecture and applied cryptography. I am passionate about creating zero-knowledge systems that empower users by giving them complete control over their data. I thrive on architecting complex, scalable solutions and am constantly exploring new technologies to build robust and meaningful software. I am fluent in English and thrive in collaborative, international environments.`,
+      tabs: { skills: "Skills & Technologies", education: "Education", experience: "Professional Experience" },
+      education: [{ degree: "Bachelor's in Computer Science", institution: "Uni-FACEF", period: "2022 - Present" }],
       experience: [
-        {
-          role: "Freelance Web Developer",
-          company: "Self-employed",
-          period: "Feb 2022 – Present",
-          description: "Development of responsive websites for small businesses using modern technologies. Direct client communication for feedback, iteration, and continuous improvement with focus on user experience and performance optimization."
-        },
-        {
-          role: "Front-end Developer",
-          company: "Instituto João de Barro",
-          period: "2023",
-          description: "Designed and implemented the front-end of a nonprofit organization's website using React. Focused on responsive layout, accessibility, user-friendly interface, and seamless integration with backend services."
-        },
-        {
-          role: "Digital Operations Lead",
-          company: "Online Community (35k+ members)",
-          period: "Jun 2018 – Dec 2022",
-          description: "Coordinated internal workflows, user support, and digital engagement strategies. Collaborated with leadership to improve systems and community experience while managing large-scale user interactions."
-        },
-        {
-          role: "Web Developer",
-          company: "Trote Solidário (Uni-FACEF)",
-          period: "2022",
-          description: "Led the development of a comprehensive web platform to manage charitable donations and events. Responsible for full-stack development, ensuring scalability, functionality, and exceptional user experience."
-        }
+        { role: "Freelance Web Developer", company: "Self-employed", period: "Feb 2022 – Present", description: "Development of responsive websites for small businesses using modern technologies. Direct client communication for feedback, iteration, and continuous improvement with focus on user experience and performance optimization." },
+        { role: "Front-end Developer", company: "Instituto João de Barro", period: "2023", description: "Designed and implemented the front-end of a nonprofit organization's website using React. Focused on responsive layout, accessibility, user-friendly interface, and seamless integration with backend services." },
+        { role: "Digital Operations Lead", company: "Online Community (35k+ members)", period: "Jun 2018 – Dec 2022", description: "Coordinated internal workflows, user support, and digital engagement strategies. Collaborated with leadership to improve systems and community experience while managing large-scale user interactions." },
+        { role: "Web Developer", company: "Trote Solidário (Uni-FACEF)", period: "2022", description: "Led the development of a comprehensive web platform to manage charitable donations and events. Responsible for full-stack development, ensuring scalability, functionality, and exceptional user experience." }
       ]
     },
     pt: {
       title: "Sobre Mim",
-      text: `Sou um engenheiro de software que constrói aplicações práticas, seguras e centradas no usuário do zero. Minha jornada em tecnologia é guiada por um princípio simples: se não encontro a ferramenta certa, eu mesmo a construo, uma filosofia que levou à criação de projetos como o LocalVault e o DeadDrop.
-
-            Com uma base sólida em Ciência da Computação, sou especialista em desenvolvimento full-stack com um foco profundo em arquitetura de segurança e criptografia aplicada. Sou apaixonado por criar sistemas de 'conhecimento-zero' (zero-knowledge) que empoderam os usuários, dando-lhes controle total sobre seus dados. Gosto de arquitetar soluções complexas e escaláveis e estou constantemente explorando novas tecnologias para construir software robusto e significativo. Possuo comunicação fluente em inglês e prospero em ambientes colaborativos e internacionais.`,
-      tabs: {
-        skills: "Habilidades & Tecnologias",
-        education: "Educação",
-        experience: "Experiência Profissional"
-      },
-      education: [
-        {
-          degree: "Bacharelado em Ciência da Computação",
-          institution: "Uni-FACEF",
-          period: "2022 - Presente"
-        }
-      ],
+      text: `Sou um engenheiro de software que constrói aplicações práticas, seguras e centradas no usuário do zero. Minha jornada em tecnologia é guiada por um princípio simples: se não encontro a ferramenta certa, eu mesmo a construo, uma filosofia que levou à criação de projetos como o LocalVault e o DeadDrop.\n\nCom uma base sólida em Ciência da Computação, sou especialista em desenvolvimento full-stack com um foco profundo em arquitetura de segurança e criptografia aplicada. Sou apaixonado por criar sistemas de 'conhecimento-zero' (zero-knowledge) que empoderam os usuários, dando-lhes controle total sobre seus dados. Gosto de arquitetar soluções complexas e escaláveis e estou constantemente explorando novas tecnologias para construir software robusto e significativo. Possuo comunicação fluente em inglês e prospero em ambientes colaborativos e internacionais.`,
+      tabs: { skills: "Habilidades & Tecnologias", education: "Educação", experience: "Experiência Profissional" },
+      education: [{ degree: "Bacharelado em Ciência da Computação", institution: "Uni-FACEF", period: "2022 - Presente" }],
       experience: [
-        {
-          role: "Desenvolvedor Web Freelancer",
-          company: "Autônomo",
-          period: "Fevereiro 2022 – Presente",
-          description: "Criação de sites responsivos para pequenos negócios utilizando tecnologias modernas. Comunicação direta com clientes para ajustes e melhorias contínuas com foco em experiência do usuário e otimização de performance."
-        },
-        {
-          role: "Desenvolvedor Front-end",
-          company: "Instituto João de Barro",
-          period: "2023",
-          description: "Projetei e desenvolvi o front-end do site de uma organização sem fins lucrativos utilizando React. Enfoque em layout responsivo, acessibilidade, interface intuitiva e integração fluida com o backend."
-        },
-        {
-          role: "Líder de Operações Digitais",
-          company: "Comunidade Online (35 mil+ membros)",
-          period: "Junho 2018 – Dezembro 2022",
-          description: "Coordenação de fluxos internos, suporte a usuários e estratégias de engajamento digital. Colaboração com a liderança para melhorar sistemas e a experiência da comunidade gerenciando interações em larga escala."
-        },
-        {
-          role: "Desenvolvedor Web",
-          company: "Trote Solidário (Uni-FACEF)",
-          period: "2022",
-          description: "Liderei o desenvolvimento de uma plataforma web abrangente para gerenciamento de doações e eventos solidários. Responsável pelo desenvolvimento full-stack, garantindo escalabilidade, funcionalidade e experiência excepcional do usuário."
-        }
+        { role: "Desenvolvedor Web Freelancer", company: "Autônomo", period: "Fevereiro 2022 – Presente", description: "Criação de sites responsivos para pequenos negócios utilizando tecnologias modernas. Comunicação direta com clientes para ajustes e melhorias contínuas com foco em experiência do usuário e otimização de performance." },
+        { role: "Desenvolvedor Front-end", company: "Instituto João de Barro", period: "2023", description: "Projetei e desenvolvi o front-end do site de uma organização sem fins lucrativos utilizando React. Enfoque em layout responsivo, acessibilidade, interface intuitiva e integração fluida com o backend." },
+        { role: "Líder de Operações Digitais", company: "Comunidade Online (35 mil+ membros)", period: "Junho 2018 – Dezembro 2022", description: "Coordenação de fluxos internos, suporte a usuários e estratégias de engajamento digital. Colaboração com a liderança para melhorar sistemas e a experiência da comunidade gerenciando interações em larga escala." },
+        { role: "Desenvolvedor Web", company: "Trote Solidário (Uni-FACEF)", period: "2022", description: "Liderei o desenvolvimento de uma plataforma web abrangente para gerenciamento de doações e eventos solidários. Responsável pelo desenvolvimento full-stack, garantindo escalabilidade, funcionalidade e experiência excepcional do usuário." }
       ]
     }
   }), []);
 
   const skills = useMemo(() => {
     return currentLang === "en"
-      ? [
-          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL",
-          "LangChain", "RAG Systems", "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design",
-          "Git & GitHub", "Tailwind CSS", "API Integration", "Agile Methodologies", "UI/UX Design",
-          "Cryptography", "Security Principles", "Responsive Design", "Performance", "Problem Solving", "Data Analysis", "Prompt Engineering"
-        ]
-      : [
-          "React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL",
-          "LangChain", "Sistemas RAG", "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados",
-          "Git & GitHub", "Tailwind CSS", "Integração de APIs", "Métodos Ágeis", "UI/UX Design",
-          "Criptografia", "Segurança", "Design Responsivo", "Performance", "Lógica & Debugging", "Análise de Dados", "Eng. de Prompt"
-        ];
+      ? ["React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL", "LangChain", "RAG Systems", "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design", "Git & GitHub", "Tailwind CSS", "API Integration", "Agile Methodologies", "UI/UX Design", "Cryptography", "Security Principles", "Responsive Design", "Performance", "Problem Solving", "Data Analysis", "Prompt Engineering"]
+      : ["React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL", "LangChain", "Sistemas RAG", "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados", "Git & GitHub", "Tailwind CSS", "Integração de APIs", "Métodos Ágeis", "UI/UX Design", "Criptografia", "Segurança", "Design Responsivo", "Performance", "Lógica & Debugging", "Análise de Dados", "Eng. de Prompt"];
   }, [currentLang]);
 
   return (
-  <section id="about" className="py-24 px-4 min-h-screen relative overflow-hidden bg-blue-50">
+    <section id="about" className="py-32 px-6 min-h-screen bg-[#0d0d0d] relative overflow-hidden">
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(251,191,36,0.04),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(251,191,36,0.03),transparent_60%)]" />
+
       <div className="max-w-6xl mx-auto relative z-10">
-        <div ref={headerRef} className="text-center mb-16">
-          <h2 className={`
-        text-6xl font-bold mb-6 text-blue-700
-        transform transition-all duration-1000 will-change-transform
-        ${headerVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'}
-          `}>
-        {content[currentLang].title}
-          </h2>
-          <div className={`
-            inline-flex rounded-full overflow-hidden border border-gray-300 shadow-lg bg-white/70
-            transform transition-all duration-700 delay-300 will-change-transform
-            ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-          `}>
-            {["en", "pt"].map((lang) => (
+
+        {/* Header */}
+        <div ref={headerRef} className="mb-20">
+          <div className={`flex items-center gap-4 mb-4 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <span className="text-amber-400 text-xs tracking-[0.4em] uppercase font-light">02 / About</span>
+            <span className="flex-1 h-px bg-white/10 max-w-xs" />
+          </div>
+          <div className="flex items-end justify-between flex-wrap gap-4">
+            <h2 className={`text-5xl md:text-6xl font-light text-white tracking-tight transition-all duration-1000 delay-100 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              {content[currentLang].title}
+            </h2>
+            {/* Language toggle */}
+            <div className={`flex border border-white/10 transition-all duration-700 delay-200 ${headerVisible ? 'opacity-100' : 'opacity-0'}`}>
+              {["en", "pt"].map((lang) => (
                 <button
-                key={lang}
-                onClick={toggleLanguage}
-                className={`px-6 py-3 text-sm font-medium transition-all duration-300 ${currentLang === lang
-                  ? "bg-blue-600 text-white shadow-lg"
-                  : "text-gray-700 hover:bg-white/50"
+                  key={lang}
+                  onClick={toggleLanguage}
+                  className={`px-5 py-2 text-xs tracking-widest uppercase font-light transition-all duration-300 ${
+                    currentLang === lang ? "bg-amber-400 text-black" : "text-white/40 hover:text-white"
                   }`}
                 >
-                {lang === "en" ? "English" : "Português"}
+                  {lang === "en" ? "English" : "Português"}
                 </button>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className={`
-          bg-white/90 rounded-3xl shadow-2xl overflow-hidden border border-white/20
-          transform transition-all duration-1000 delay-500 will-change-[transform,opacity]
-          ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}
-        `}>
-            <div className="lg:flex">
-            <aside className="lg:w-1/3 bg-blue-700 text-white p-8 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-full h-full bg-white/20"></div>
-              <div className="absolute -top-16 -right-16 w-32 h-32 bg-white/10 rounded-full"></div>
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-white/10 rounded-full"></div>
+        {/* Main grid */}
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-16">
+
+          {/* LEFT — Info column */}
+          <aside className={`transition-all duration-700 delay-300 ${headerVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+            {/* Contact info */}
+            <div className="space-y-6 mb-10">
+              {[
+                { label: "Email", value: "lucas.gerbasi1@gmail.com" },
+                { label: "Location", value: "Franca, Brazil" },
+                { label: "GitHub", value: "github.com/lucasgerbasi", link: "https://github.com/lucasgerbasi" },
+                { label: "LinkedIn", value: "linkedin.com/in/lucas-gerbasi", link: "https://www.linkedin.com/in/lucas-gerbasi/" }
+              ].map((item, i) => (
+                <div key={i} style={{ transitionDelay: `${400 + i * 80}ms` }} className={`transition-all duration-500 ${headerVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className="text-white/25 text-xs tracking-[0.3em] uppercase mb-1">{item.label}</div>
+                  {item.link ? (
+                    <a href={item.link} className="text-white/70 text-sm hover:text-amber-400 transition-colors duration-300" target="_blank" rel="noopener noreferrer">{item.value}</a>
+                  ) : (
+                    <p className="text-white/70 text-sm">{item.value}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="h-px bg-white/10 mb-10" />
+
+            {/* Resume */}
+            <a
+              href={currentLang === "en" ? resumeEN : resumePT}
+              download={currentLang === "en" ? "CV - Lucas Gerbasi - English.pdf" : "CV - Lucas Gerbasi.pdf"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 group text-sm text-white/60 hover:text-white transition-colors duration-300"
+            >
+              <span className="w-8 h-px bg-white/30 group-hover:w-12 group-hover:bg-amber-400 transition-all duration-300" />
+              {currentLang === "en" ? "Download Resume" : "Baixar Currículo"}
+              <svg className="w-4 h-4 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </a>
+          </aside>
+
+          {/* RIGHT — Content column */}
+          <main className="space-y-16">
+            {/* Bio */}
+            <section className={`transition-all duration-700 delay-400 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              {content[currentLang].text.split('\n\n').map((para, i) => (
+                <p key={i} className="text-white/60 leading-relaxed text-base mb-4 last:mb-0">{para}</p>
+              ))}
+            </section>
+
+            {/* Education */}
+            <section className={`transition-all duration-700 delay-500 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-light">{content[currentLang].tabs.education}</span>
+                <span className="flex-1 h-px bg-white/10" />
               </div>
-              
-              <div className="relative z-10">
-              <div className="text-center mb-8">
-                <div className="w-32 h-32 rounded-full bg-white/20 mx-auto flex items-center justify-center text-4xl font-bold mb-6 shadow-xl border border-white/20 hover:scale-110 transition-transform duration-300">
-                LG
+              {content[currentLang].education.map((edu, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" />
+                  <div>
+                    <span className="text-white font-medium">{edu.degree}</span>
+                    <span className="text-white/40 text-sm"> — {edu.institution}</span>
+                    <div className="text-white/25 text-xs tracking-widest uppercase mt-0.5">{edu.period}</div>
+                  </div>
                 </div>
+              ))}
+            </section>
+
+            {/* Skills */}
+            <section ref={skillsRef as React.RefObject<HTMLElement>}>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-light">{content[currentLang].tabs.skills}</span>
+                <span className="flex-1 h-px bg-white/10" />
               </div>
-                
-                <div className="space-y-6 text-sm">
-                  {[
-                    { label: "Email", value: "lucas.gerbasi1@gmail.com" },
-                    { label: "Location", value: "Franca, Brazil" },
-                    { label: "GitHub", value: "github.com/lucasgerbasi", link: "https://github.com/lucasgerbasi" },
-                    { label: "LinkedIn", value: "linkedin.com/in/lucas-gerbasi", link: "https://www.linkedin.com/in/lucas-gerbasi/" }
-                  ].map((item, index) => (
-                    <div key={index} className={`
-                      transform transition-all duration-500 hover:translate-x-2 will-change-transform
-                      ${headerVisible ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}
-                    `} style={{ transitionDelay: `${800 + index * 100}ms` }}>
-                      <h4 className="text-white/70 uppercase font-semibold text-xs mb-1">
-                        {item.label}
-                      </h4>
-                      {item.link ? (
-                        <a href={item.link} className="font-medium hover:text-blue-200 transition-colors duration-300 block" target="_blank" rel="noopener noreferrer">{item.value}</a>
-                      ) : (
-                        <p className="font-medium">{item.value}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="my-8 border-t border-white/30"></div>
-                
-                <a
-                  href={currentLang === "en" ? resumeEN : resumePT}
-                  download={currentLang === "en" ? "CV - Lucas Gerbasi - English.pdf" : "CV - Lucas Gerbasi.pdf"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`
-                    w-full block px-6 py-3 bg-blue-600 hover:bg-blue-700
-                    text-white rounded-full font-semibold shadow-lg transition-all duration-300 
-                    hover:shadow-xl hover:scale-105 transform text-center will-change-transform
-                    ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-                  `}
-                  style={{ transitionDelay: '1200ms' }}
-                >
-                  {currentLang === "en" ? "Download Resume" : "Baixar Currículo"}
-                </a>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill, index) => (
+                  <SkillBadge key={index} skill={skill} index={index} isVisible={skillsVisible} />
+                ))}
               </div>
-            </aside>
+            </section>
 
-            <main className="lg:w-2/3 p-8 lg:p-12 space-y-16 relative">
-                <section className={`
-                  transform transition-all duration-800 will-change-transform
-                  ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
-                `} style={{ transitionDelay: '600ms' }}>
-                  <p className="text-gray-700 leading-relaxed text-lg mb-8 relative whitespace-pre-line">
-                    {content[currentLang].text}
-                  </p>
-                  <div className="flex justify-center mb-8">
-                    <div className="w-32 h-1 rounded-full bg-blue-400 shadow-lg"></div>
-                  </div>
-                </section>
-
-                <section ref={skillsRef}>
-                  <h3 className={`
-                    text-3xl font-bold mb-8 text-blue-700
-                    transform transition-all duration-700 will-change-transform
-                    ${skillsVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-                  `}>
-                    {content[currentLang].tabs.skills}
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {skills.map((skill, index) => (
-                      <SkillBadge 
-                        key={index}
-                        skill={skill} 
-                        index={index} 
-                        isVisible={skillsVisible}
-                      />
-                    ))}
-                  </div>
-                </section>
-
-                <section className={`
-                transform transition-all duration-800 will-change-transform
-                ${skillsVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
-                `} style={{ transitionDelay: '400ms' }}>
-                <h3 className="text-3xl font-bold mb-6 text-blue-700">
-                  {content[currentLang].tabs.education}
-                </h3>
-                <div className="bg-blue-50 rounded-xl p-6 shadow-lg border border-blue-100">
-                  {content[currentLang].education.map((edu, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full shadow-lg"></div>
-                    <div>
-                    <strong className="text-lg font-semibold text-gray-800">{edu.degree}</strong>
-                    <span className="text-gray-600"> - {edu.institution}</span>
-                    <span className="text-blue-600 font-medium ml-2">({edu.period})</span>
-                    </div>
-                  </div>
-                  ))}
-                </div>
-                </section>
-
-                <section ref={experienceRef as React.RefObject<HTMLElement>}>
-                <h3 className={`
-                  text-3xl font-bold mb-8 text-blue-700
-                  transform transition-all duration-700 will-change-transform
-                  ${experienceVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-                `}>
-                  {content[currentLang].tabs.experience}
-                </h3>
-                <div className="relative pl-8">
-                  <div className="absolute left-2 top-0 bottom-0 w-1 bg-blue-400 rounded-full shadow-lg"></div>
-                  <div className="space-y-8">
-                    {content[currentLang].experience.map((exp, index) => (
-                      <TimelineItem 
-                        key={index}
-                        exp={exp} 
-                        index={index} 
-                        isVisible={experienceVisible as boolean}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </section>
-            </main>
-          </div>
+            {/* Experience */}
+            <section ref={experienceRef as React.RefObject<HTMLElement>}>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-light">{content[currentLang].tabs.experience}</span>
+                <span className="flex-1 h-px bg-white/10" />
+              </div>
+              <div>
+                {content[currentLang].experience.map((exp, index) => (
+                  <TimelineItem key={index} exp={exp} index={index} isVisible={experienceVisible as boolean} />
+                ))}
+              </div>
+            </section>
+          </main>
         </div>
       </div>
     </section>
