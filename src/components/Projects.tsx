@@ -2,18 +2,18 @@ import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import mementoImg from '../assets/images/memento.jpg';
-import ijbprojetoImg from '../assets/images/ijbprojeto.jpg';
 import localvaultImg from '../assets/images/localvaultlogo.jpg';
+import deaddropImg from '../assets/images/deaddrop_logo.png';
 import lumenImg from '../assets/images/lumenlogo.png';
-import trotesolidarioImg from '../assets/images/trotesolidario.png';
+import buyorwaitImg from '../assets/images/buyorwait.png';
+import hyakkiImg from '../assets/images/hyakki.png';
+import ijbprojetoImg from '../assets/images/ijbprojeto.jpg';
 import whatyouforgotImg from '../assets/images/whatyouforgot.png';
-import echoboxImg from '../assets/images/echobox.png';
+
 import placeholderGif from '../assets/images/placeholder.gif';
 import localvaultGif from '../assets/videos/localvault.gif';
+import hyakkiGif from '../assets/videos/hyakkigif1.gif';
 import lumenWebM from '../assets/images/placeholder.gif';
-import mementoWebM from '../assets/videos/memento.webm';
-import deaddropImg from '../assets/images/deaddrop_logo.png';
 
 export default function Projects() {
   const { currentLang } = useLanguage();
@@ -22,7 +22,9 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isShowingDemo, setIsShowingDemo] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  
   const sectionRef = useRef<HTMLElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleTrack = (name: string) => {
     if ((window as any).goatcounter?.count) (window as any).goatcounter.count({ path: name, event: true });
@@ -36,6 +38,7 @@ export default function Projects() {
       longDescription: { en: "I created LocalVault to solve my own need for a straightforward, highly secure password manager that wasn't reliant on the cloud. This project is a desktop application that gives users complete control over their data by encrypting and storing it locally, secured by a single master password. It includes a full suite of features, from a secure password generator to encrypted vault backups.", pt: "Eu criei o LocalVault para resolver minha própria necessidade de um gerenciador de senhas direto, altamente seguro e que não dependesse da nuvem. Este projeto é uma aplicação de desktop que dá aos usuários controle total sobre seus dados, criptografando e armazenando-os localmente, protegidos por uma única senha mestra. Inclui um conjunto completo de recursos, desde um gerador de senhas seguro até backups criptografados do cofre." },
       tech: ['Electron', 'Node.js', 'Argon2', 'AES-256-GCM', 'Cryptography'],
       image: localvaultImg, demoAsset: localvaultGif, mediaType: 'gif' as const,
+      hasDemo: true,
       githubLink: "https://github.com/lucasgerbasi/LocalVault", liveLink: null,
       caseStudyLink: "https://docs.google.com/document/d/17RtvC_PenJwMyh9gcbhf5_vfJ-HuuzLcmjGg8ho4SXQ/edit?usp=sharing",
       caseStudy: {
@@ -52,6 +55,7 @@ export default function Projects() {
       longDescription: { en: "Similar to LocalVault, I built DeadDrop to address my own need for a truly private, one-time method of sharing sensitive files without trusting a third party. It's a web utility that implements a Zero-Knowledge Architecture where all encryption occurs client-side, ensuring the server is blind to file contents. Files are permanently deleted after the first download.", pt: "Assim como o LocalVault, construí o DeadDrop para resolver minha própria necessidade de um método verdadeiramente privado e de uso único para compartilhar arquivos sensíveis sem confiar em terceiros. É um utilitário web que implementa uma Arquitetura de Conhecimento Zero, onde toda a criptografia ocorre no lado do cliente, garantindo que o servidor seja cego ao conteúdo dos arquivos. Os arquivos são permanentemente excluídos após o primeiro download." },
       tech: ['React', 'Node.js', 'Web Crypto API', 'Zero-Knowledge'],
       image: deaddropImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
+      hasDemo: false,
       githubLink: "https://github.com/lucasgerbasi/DeadDrop", liveLink: "https://lucasgerbasi.github.io/DeadDrop/",
       caseStudyLink: "https://docs.google.com/document/d/1zi4Es4g4lryFLYn33BewXvd1A_vY1kBbhZ6wx5MHu0Q/edit?usp=sharing",
       caseStudy: {
@@ -62,12 +66,13 @@ export default function Projects() {
       }
     },
     {
-      id: 8, year: 2026, featured: false,
+      id: 8, year: 2026, featured: true,
       title: { en: "Lumen", pt: "Lumen" },
       description: { en: "A fully local RAG engine for secure document and repository querying.", pt: "Um motor RAG totalmente local para consulta segura de documentos e repositórios." },
       longDescription: { en: "Lumen is a fully local RAG (Retrieval-Augmented Generation) application designed to help you query your documents securely. By ingesting PDFs and GitHub repositories, Lumen allows you to ask questions in plain English and receive answers grounded strictly in your own data, without any information ever leaving your machine.", pt: "Lumen é uma aplicação RAG (Retrieval-Augmented Generation) totalmente local projetada para ajudar você a consultar seus documentos com segurança. Ao ingerir PDFs e repositórios GitHub, o Lumen permite que você faça perguntas em linguagem natural e receba respostas baseadas estritamente em seus próprios dados, sem que nenhuma informação saia da sua máquina." },
       tech: ['FastAPI', 'Ollama', 'FAISS', 'Python', 'LangChain'],
       image: lumenImg, demoAsset: lumenWebM, mediaType: 'video' as const,
+      hasDemo: false,
       githubLink: "https://github.com/lucasgerbasi/Lumen", liveLink: null,
       caseStudy: {
         myRole: { en: "Solo Backend Developer & AI Integrator", pt: "Desenvolvedor Backend Solo e Integrador de IA" },
@@ -77,49 +82,51 @@ export default function Projects() {
       }
     },
     {
-      id: 1, year: 2025, featured: false,
-      title: { en: "Memento", pt: "Memento" },
-      description: { en: "A complex application in Godot 4, architected from the ground up to demonstrate advanced data-driven systems and state management.", pt: "Uma aplicação complexa em Godot 4, arquitetada do zero para demonstrar sistemas avançados orientados a dados e gerenciamento de estado." },
-      longDescription: { en: "Memento is a top-down exploration and collection game set in the Echorealm, a drowned sea of memory. As a 'Stable Echo,' the player engages in a core loop of catching unique fish, sacrificing them for currency, upgrading permanent abilities, and crafting new fish forms through a deep, multi-layered system.", pt: "Memento é um jogo de exploração e coleção top-down ambientado no Echorealm, um mar afogado de memórias. Como um 'Eco Estável', o jogador participa de um loop de gameplay de pescar peixes únicos, sacrificá-los por moeda, aprimorar habilidades permanentes e criar novas formas de peixes através de um sistema profundo e multifacetado." },
-      tech: ['Godot 4', 'GDScript', 'Data-Driven Design'],
-      image: mementoImg, demoAsset: mementoWebM, mediaType: 'video' as const,
-      githubLink: "https://github.com/lucasgerbasi/memento", liveLink: null,
-      caseStudyLink: "https://docs.google.com/document/d/1uvvJmvyPA4PYNZNG3Lr1oJGowkQMPpODNN5TN-YgnjE/edit?usp=sharing",
+      id: 9, year: 2026, featured: true,
+      title: { en: "Buy or Wait", pt: "Buy or Wait" },
+      description: { en: "A mobile app that tracks game prices across official stores and sends background notifications for historical lows.", pt: "Um aplicativo móvel que rastreia preços de jogos em lojas oficiais e envia notificações automáticas em segundo plano para mínimas históricas." },
+      longDescription: { en: "Built with Flutter and Firebase, this app consumes multiple APIs (Steam, GG.deals) to track game prices across curated official stores. It utilizes background workers to check for historical low prices every 24 hours and sends local notifications to the user, ensuring they never miss a deal while avoiding shady key resellers.", pt: "Desenvolvido com Flutter e Firebase, este app consome múltiplas APIs (Steam, GG.deals) para rastrear preços de jogos em lojas oficiais curadas. Ele utiliza background workers para checar mínimas históricas a cada 24 horas e envia notificações locais ao usuário, garantindo que ele nunca perca uma promoção enquanto evita revendedores obscuros." },
+      tech: ['Flutter', 'Dart', 'Firebase', 'APIs'],
+      image: buyorwaitImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
+      hasDemo: false,
+      githubLink: "https://github.com/lucasgerbasi/BuyOrWait", liveLink: "https://github.com/lucasgerbasi/BuyOrWait/releases/tag/1.0",
       caseStudy: {
-        myRole: { en: "Solo Developer & Game Designer", pt: "Desenvolvedor Solo e Game Designer" },
-        challenge: { en: "Architecting a highly data-driven and interconnected system in Godot where dozens of unique items and world events could interact without writing brittle, hard-coded logic. The system needed to be scalable for future content.", pt: "Arquitetar um sistema altamente interconectado e orientado a dados em Godot, onde dezenas de itens e eventos de mundo pudessem interagir sem lógica frágil e hard-coded. O sistema precisava ser escalável para conteúdo futuro." },
-        solution: { en: "I implemented a robust singleton pattern where a central 'GameData' manager loads all game entities from resource files into dictionaries at startup. Other systems query this manager by ID, completely decoupling the logic from the content and allowing for rapid content creation.", pt: "Implementei um padrão singleton robusto onde um gerenciador central 'GameData' carrega todas as entidades do jogo de arquivos de recurso para dicionários na inicialização. Outros sistemas consultam este gerenciador por ID, desacoplando completamente a lógica do conteúdo e permitindo a criação rápida de novo conteúdo." },
-        outcome: { en: "This architecture resulted in a highly scalable and stable prototype, significantly speeding up the process of adding new content. It also taught me invaluable lessons in data-oriented design patterns.", pt: "Essa arquitetura resultou em um protótipo altamente escalável e estável, acelerando significativamente o processo de adicionar novo conteúdo. Também me ensinou lições valiosas sobre padrões de design orientados a dados." }
+        myRole: { en: "Solo Mobile Developer", pt: "Desenvolvedor Mobile Solo" },
+        challenge: { en: "Running reliable background tasks on mobile devices to check multiple APIs without draining battery, and cross-referencing Steam IDs with a curated list of official stores.", pt: "Rodar tarefas em segundo plano de forma confiável em dispositivos móveis para checar múltiplas APIs sem drenar a bateria, e cruzar IDs da Steam com uma lista curada de lojas oficiais." },
+        solution: { en: "Implemented the `workmanager` package for efficient background execution and utilized Firebase Anonymous Authentication with Cloud Firestore to sync user wishlists securely without requiring complex login flows.", pt: "Implementei o pacote `workmanager` para execução eficiente em segundo plano e utilizei o Firebase Anonymous Authentication com Cloud Firestore para sincronizar listas de desejos de forma segura sem exigir fluxos complexos de login." },
+        outcome: { en: "A fully functional, cross-platform mobile utility that provides genuine value to gamers by filtering out gray-market noise and focusing on legitimate, historical-low deals.", pt: "Um utilitário móvel multiplataforma totalmente funcional que fornece valor real aos gamers, filtrando o ruído do mercado cinza e focando em ofertas legítimas de mínimas históricas." }
+      }
+    },
+    {
+      id: 10, year: 2025, featured: false,
+      title: { en: "HYAKKI", pt: "HYAKKI" },
+      description: { en: "A snake-like action roguelite featuring infinite scaling and a custom \"constriction\" AoE mechanic.", pt: "Um action roguelite estilo 'snake' focado em escala infinita e mecânicas de área de efeito." },
+      longDescription: { en: "HYAKKI is a snake-like action roguelite set in a world of Japanese folklore. Instead of wielding weapons, you are the parade itself. Players must slither through hordes of enemies, creating complete loops with their body to trigger massive area-of-effect \"constriction\" attacks. The public demo achieved a highly successful 50% view-to-play conversion rate on itch.io.", pt: "HYAKKI é um action roguelite estilo snake ambientado no folclore japonês. Em vez de empunhar armas, você é o próprio desfile. Os jogadores devem rastejar por hordas de inimigos, criando loops completos com seus corpos para ativar ataques massivos de \"constrição\" em área. A demo pública alcançou uma taxa de conversão (view-to-play) altamente bem-sucedida de 50% no itch.io." },
+      tech: ['Godot 4', 'GDScript', 'Game Design', 'Data-Driven'],
+      image: hyakkiImg, demoAsset: hyakkiGif, mediaType: 'gif' as const,
+      hasDemo: true,
+      githubLink: null, liveLink: "https://lugerp.itch.io/hyakki",
+      caseStudy: {
+        myRole: { en: "Solo Indie Developer & Game Designer", pt: "Desenvolvedor Indie Solo e Game Designer" },
+        challenge: { en: "Designing a unique, satisfying core loop that combines the classic movement of \"Snake\" with the high-intensity, infinite-scaling combat of modern action roguelites.", pt: "Projetar um loop principal único e satisfatório que combina o movimento clássico de \"Snake\" com o combate de alta intensidade e escala infinita dos action roguelites modernos." },
+        solution: { en: "Engineered a custom polygon-intersection algorithm to detect when the player's tail loops over itself, calculating the area and applying massive damage to all entities caught inside, heavily rewarding precise movement.", pt: "Criei um algoritmo customizado de interseção de polígonos para detectar quando a cauda do jogador cruza sobre si mesma, calculando a área e aplicando dano massivo a todas as entidades presas dentro, recompensando fortemente a movimentação precisa." },
+        outcome: { en: "Successfully shipped a playable, highly engaging demo that resonated strongly with players, validating the core mechanics through excellent conversion metrics.", pt: "Lancei com sucesso uma demo jogável e altamente envolvente que ressoou fortemente com os jogadores, validando as mecânicas principais por meio de excelentes métricas de conversão." }
       }
     },
     {
       id: 3, year: 2023, featured: false,
       title: { en: "IJB Website", pt: "Site IJB" },
-      description: { en: "Built a site for a nonprofit that renovates homes. Led front-end using React and styled components.", pt: "Construí um site para uma ONG que reforma casas. Liderei o front-end com React e componentes estilizados." },
-      longDescription: { en: "Designed and implemented a comprehensive website for Instituto João de Barro. Led the front-end development team, implementing responsive design principles and accessibility features.", pt: "Projetei e implementei um site abrangente para o Instituto João de Barro. Liderei a equipe de desenvolvimento front-end, implementando princípios de design responsivo e acessibilidade." },
+      description: { en: "Built a fundraising platform for a home-renovation nonprofit. Led front-end development using React.", pt: "Construí uma plataforma de captação para uma ONG que reforma casas. Liderei o front-end com React." },
+      longDescription: { en: "Designed and implemented the front-end for Instituto João de Barro's fundraising platform. Focused on building a robust, accessible, and performant user interface to support the NGO's mission of renovating homes.", pt: "Projetei e implementei o front-end da plataforma de captação do Instituto João de Barro. Foco em construir uma interface robusta, acessível e de alto desempenho para apoiar a missão da ONG de reformar casas." },
       tech: ['React', 'HTML5', 'CSS3', 'JavaScript'],
       image: ijbprojetoImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
+      hasDemo: false,
       githubLink: "https://github.com/MPasti/instituto-joao-de-barro", liveLink: null,
       caseStudy: {
         myRole: { en: "Front-End Development Lead", pt: "Líder de Desenvolvimento Front-End" },
-        challenge: { en: "Ensuring the site was highly accessible (WCAG AA) and performed well on low-end devices.", pt: "Garantir que o site fosse altamente acessível (WCAG AA) e tivesse um bom desempenho em dispositivos de baixo custo." },
-        solution: { en: "I enforced strict semantic HTML and used lazy loading for images. Conducted regular audits with Lighthouse.", pt: "Impus o uso de HTML semântico e usei carregamento tardio para imagens. Realizei auditorias regulares com o Lighthouse." },
-        outcome: { en: "Led to a 30% increase in online donations and solidified my skills in team leadership and performance optimization.", pt: "Resultou em um aumento de 30% nas doações online e solidificou minhas habilidades em liderança de equipe e otimização." }
-      }
-    },
-    {
-      id: 4, year: 2022, featured: false,
-      title: { en: "Trote Solidário", pt: "Trote Solidário" },
-      description: { en: "Full-stack charity donations and events platform for Uni-FACEF.", pt: "Plataforma full-stack de doações e eventos solidários na Uni-FACEF." },
-      longDescription: { en: "Led full-stack development of a charity platform for Uni-FACEF's annual initiative, focused on scalability and event management.", pt: "Liderou o desenvolvimento full-stack de uma plataforma solidária para a iniciativa anual da Uni-FACEF." },
-      tech: ['React', 'Node.js', 'Full-Stack'],
-      image: trotesolidarioImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
-      githubLink: "https://github.com/lucasgerbasi", liveLink: null,
-      caseStudy: {
-        myRole: { en: "Full-Stack Developer", pt: "Desenvolvedor Full-Stack" },
-        challenge: { en: "Building a reliable donation and event management platform for a live university initiative.", pt: "Construir uma plataforma confiável de doações para uma iniciativa universitária real." },
-        solution: { en: "React front-end with Node.js backend, designed for scalability.", pt: "Front-end React com backend Node.js projetado para escalabilidade." },
-        outcome: { en: "Successfully powered the university's annual charity initiative.", pt: "Impulsionou com sucesso a iniciativa anual de caridade da universidade." }
+        challenge: { en: "Ensuring the platform was highly accessible (WCAG guidelines) and performed exceptionally well on low-end devices to maximize outreach.", pt: "Garantir que a plataforma fosse altamente acessível (diretrizes WCAG) e tivesse um excelente desempenho em dispositivos de entrada para maximizar o alcance." },
+        solution: { en: "Implemented strict semantic HTML, optimized assets, and integrated SEO best practices. Conducted rigorous testing to meet high performance standards.", pt: "Implementei HTML semântico rigoroso, otimizei assets e integrei boas práticas de SEO. Realizei testes rigorosos para atingir altos padrões de desempenho." },
+        outcome: { en: "Successfully deployed the platform, achieving a 96/100 Best Practices score on Lighthouse and establishing a solid foundation for the organization's digital presence.", pt: "Plataforma lançada com sucesso, atingindo a marca de 96/100 em Boas Práticas no Lighthouse e estabelecendo uma base sólida para a presença digital da organização." }
       }
     },
     {
@@ -129,6 +136,7 @@ export default function Projects() {
       longDescription: { en: "An introspective digital experience that presents random 'memories' with surreal, nostalgic undertones. Limited to 2 memories per day to preserve emotional impact.", pt: "Uma experiência digital introspectiva que apresenta 'memórias' aleatórias com tons surreais. Limitado a 2 memórias por dia para preservar o impacto emocional." },
       tech: ['HTML5', 'CSS3', 'JavaScript', 'html2canvas'],
       image: whatyouforgotImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
+      hasDemo: false,
       githubLink: "https://github.com/lucasgerbasi/what-you-forgot-to-remember", liveLink: "https://lucasgerbasi.github.io/what-you-forgot-to-remember/",
       caseStudy: {
         myRole: { en: "Solo Developer & Creator", pt: "Desenvolvedor Solo e Criador" },
@@ -136,22 +144,7 @@ export default function Projects() {
         solution: { en: "I integrated 'html2canvas' to take screenshots of DOM elements and convert them to downloadable data URLs.", pt: "Integrei a biblioteca 'html2canvas' para tirar screenshots de elementos DOM e convertê-los em URLs de dados para download." },
         outcome: { en: "A unique digital art piece that encourages mindful interaction and creative coding.", pt: "Uma peça de arte digital única que incentiva a interação consciente e a programação criativa." }
       }
-    },
-    {
-      id: 6, year: 2024, featured: false,
-      title: { en: "EchoBox", pt: "EchoBox" },
-      description: { en: "Anonymous confession and echo system where users submit messages and receive random ones from others.", pt: "Sistema anônimo de confissões onde usuários enviam mensagens e recebem outras aleatórias." },
-      longDescription: { en: "A Flask-based anonymous messaging platform that creates connections through shared vulnerability. Fosters empathy while maintaining complete anonymity.", pt: "Uma plataforma de mensagens anônimas baseada em Flask que cria conexões através da vulnerabilidade compartilhada." },
-      tech: ['Python', 'Flask', 'SQLite', 'HTML5', 'CSS3'],
-      image: echoboxImg, demoAsset: placeholderGif, mediaType: 'gif' as const,
-      githubLink: "https://github.com/lucasgerbasi/echobox", liveLink: null,
-      caseStudy: {
-        myRole: { en: "Full-Stack Developer", pt: "Desenvolvedor Full-Stack" },
-        challenge: { en: "Ensuring true user anonymity while preventing spam or malicious use.", pt: "Garantir o anonimato real do usuário e, ao mesmo tempo, prevenir spam ou uso malicioso." },
-        solution: { en: "Designed SQLite schema to never store PII and implemented a profanity filter on the backend.", pt: "Projetei o esquema SQLite para nunca armazenar PII e implementei um filtro de palavrões no backend." },
-        outcome: { en: "A safe space for anonymous sharing and a great introduction to full-stack development with Python.", pt: "Um espaço seguro para compartilhamento anônimo e uma ótima introdução ao desenvolvimento full-stack com Python." }
-      }
-    },
+    }
   ];
 
   useEffect(() => {
@@ -163,8 +156,23 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
-  const handleOpenDetails = (project: Project) => { setSelectedProject(project); setIsShowingDemo(false); };
-  const handleToggleDemo = () => setIsShowingDemo(p => !p);
+  const handleOpenDetails = (project: Project) => { 
+    setSelectedProject(project); 
+    setIsShowingDemo(false); 
+  };
+
+  const handleToggleDemo = () => {
+    setIsShowingDemo(p => !p);
+    
+    // Smoothly scroll to the top of the modal after a tiny delay
+    // to ensure React has rendered the new image/video tag.
+    setTimeout(() => {
+      if (modalRef.current) {
+        modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 50);
+  };
+
   const lang = currentLang as Lang;
 
   const animStyle = (delay: number): React.CSSProperties => ({
@@ -179,7 +187,6 @@ export default function Projects() {
     </div>
   );
 
-  // Removed the truncation limit entirely as requested
   const TechLine = ({ tech }: { tech: string[] }) => (
     <p className="text-white/30 text-[11px] leading-relaxed">
       {tech.join(' · ')}
@@ -188,9 +195,11 @@ export default function Projects() {
 
   const CardLinks = ({ project }: { project: any }) => (
     <div className="flex items-center gap-3 pt-2.5 border-t border-white/[0.06] mt-auto">
-      <a href={project.githubLink} target="_blank" rel="noopener noreferrer"
-        onClick={(e: React.MouseEvent) => { e.stopPropagation(); handleTrack(`Clicked GitHub (Card): ${project.title.en}`); }}
-        className="text-white/25 text-[11px] hover:text-amber-400 transition-colors uppercase tracking-wider">GitHub ↗</a>
+      {project.githubLink && (
+        <a href={project.githubLink} target="_blank" rel="noopener noreferrer"
+          onClick={(e: React.MouseEvent) => { e.stopPropagation(); handleTrack(`Clicked GitHub (Card): ${project.title.en}`); }}
+          className="text-white/25 text-[11px] hover:text-amber-400 transition-colors uppercase tracking-wider">GitHub ↗</a>
+      )}
       {project.liveLink && (
         <a href={project.liveLink} target="_blank" rel="noopener noreferrer"
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
@@ -235,7 +244,6 @@ export default function Projects() {
           className="mb-3 hidden lg:grid gap-3"
           style={{
             gridTemplateColumns: 'repeat(3, 1fr)',
-            // Changed strictly fixed rows to minmax to allow content (like untruncated tags/desc) to flow without clipping
             gridTemplateRows: 'minmax(280px, auto) minmax(280px, auto)',
           }}
         >
@@ -307,7 +315,7 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* 4. Memento (Col 3, Row 2) */}
+          {/* 4. Buy or Wait (Col 3, Row 2) */}
           <div
             className="group cursor-pointer overflow-hidden bg-[#141414] border border-white/5 hover:border-amber-400/25 transition-all duration-500 flex flex-col col-span-1 row-span-1"
             style={{ ...animStyle(240) }}
@@ -390,6 +398,7 @@ export default function Projects() {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
+              ref={modalRef}
               initial={{ scale: 0.96, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.96, opacity: 0, y: 16 }}
@@ -439,11 +448,13 @@ export default function Projects() {
               </div>
 
               <div className="px-8 pb-8 flex gap-3 flex-wrap border-t border-white/5 pt-6">
-                <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer"
-                  onClick={() => handleTrack(`Clicked GitHub (Modal): ${selectedProject.title.en}`)}
-                  className="px-5 py-2.5 text-sm text-white border border-white/15 hover:border-amber-400/50 hover:text-amber-300 transition-all duration-300 tracking-wider">
-                  GitHub ↗
-                </a>
+                {selectedProject.githubLink && (
+                  <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer"
+                    onClick={() => handleTrack(`Clicked GitHub (Modal): ${selectedProject.title.en}`)}
+                    className="px-5 py-2.5 text-sm text-white border border-white/15 hover:border-amber-400/50 hover:text-amber-300 transition-all duration-300 tracking-wider">
+                    GitHub ↗
+                  </a>
+                )}
                 {selectedProject.liveLink && (
                   <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer"
                     className="px-5 py-2.5 text-sm text-black bg-amber-400 hover:bg-amber-300 transition-all duration-300 tracking-wider font-medium">
@@ -457,10 +468,12 @@ export default function Projects() {
                     {currentLang === 'en' ? 'Case Study ↗' : 'Estudo de Caso ↗'}
                   </a>
                 )}
-                <button onClick={handleToggleDemo}
-                  className="px-5 py-2.5 text-sm text-white/35 border border-white/8 hover:border-white/20 hover:text-white/60 transition-all duration-300 tracking-wider">
-                  {isShowingDemo ? (currentLang === 'en' ? 'Static Image' : 'Imagem') : (currentLang === 'en' ? 'Show Demo' : 'Ver Demo')}
-                </button>
+                {selectedProject.hasDemo && (
+                  <button onClick={handleToggleDemo}
+                    className="px-5 py-2.5 text-sm text-white/35 border border-white/8 hover:border-white/20 hover:text-white/60 transition-all duration-300 tracking-wider">
+                    {isShowingDemo ? (currentLang === 'en' ? 'Static Image' : 'Imagem') : (currentLang === 'en' ? 'Show Demo' : 'Ver Demo')}
+                  </button>
+                )}
               </div>
             </motion.div>
           </motion.div>

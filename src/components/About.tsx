@@ -33,7 +33,7 @@ const SkillBadge: React.FC<SkillBadgeProps> = React.memo(({ skill, index, isVisi
       transition-all duration-700 hover:border-amber-400/60 hover:text-amber-300 cursor-default
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}
     `}
-    style={{ transitionDelay: `${index * 50}ms` }}
+    style={{ transitionDelay: `${index * 40}ms` }}
   >
     {skill}
   </div>
@@ -108,9 +108,20 @@ export default function About() {
   }), []);
 
   const skills = useMemo(() => {
+    // Ordered by: Languages -> Frameworks -> Tools/Cloud -> Concepts
     return currentLang === "en"
-      ? ["React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL", "LangChain", "RAG Systems", "Electron.js", "Godot Engine", "GDScript", "Game Design", "Data-Driven Design", "Git & GitHub", "Tailwind CSS", "API Integration", "Agile Methodologies", "UI/UX Design", "Cryptography", "Security Principles", "Responsive Design", "Performance", "Problem Solving", "Data Analysis", "Prompt Engineering"]
-      : ["React.js", "TypeScript", "JavaScript ES6+", "HTML5 & CSS3", "Node.js", "Python", "FastAPI", "SQL", "LangChain", "Sistemas RAG", "Electron.js", "Godot Engine", "GDScript", "Design de Jogos", "Orientado a Dados", "Git & GitHub", "Tailwind CSS", "Integração de APIs", "Métodos Ágeis", "UI/UX Design", "Criptografia", "Segurança", "Design Responsivo", "Performance", "Lógica & Debugging", "Análise de Dados", "Eng. de Prompt"];
+      ? [
+          "Python", "Node.js", "TypeScript", "C#", "SQL", "Dart", "GDScript", "HTML5 & CSS3",
+          "FastAPI", "Electron.js", "React.js", "Flutter", "Tailwind CSS",
+          "AWS", "LangChain", "Firebase", "Godot Engine", "Git & GitHub",
+          "Cryptography", "Security Architecture", "REST APIs", "RAG Systems", "Data-Driven Design", "Mobile Development", "Prompt Engineering", "Agile Methodologies", "UI/UX Design"
+        ]
+      : [
+          "Python", "Node.js", "TypeScript", "C#", "SQL", "Dart", "GDScript", "HTML5 & CSS3",
+          "FastAPI", "Electron.js", "React.js", "Flutter", "Tailwind CSS",
+          "AWS", "LangChain", "Firebase", "Godot Engine", "Git & GitHub",
+          "Criptografia", "Arquitetura de Segurança", "APIs REST", "Sistemas RAG", "Orientado a Dados", "Desenvolvimento Mobile", "Eng. de Prompt", "Métodos Ágeis", "UI/UX Design"
+        ];
   }, [currentLang]);
 
   return (
